@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import colors from 'colors';
 import dotenv from 'dotenv';
-import { connectDB } from './config/db';
+import { connectDB } from './db';
 
 const terminalColors = colors;
 
