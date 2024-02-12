@@ -1,0 +1,9 @@
+###
+
+POST http://localhost:5000/app/users/
+Content-type: application/json
+
+{
+    "username": "test",
+    "password": "test111"
+}
