@@ -1,18 +1,11 @@
 import { UserModal, TUser } from "../models";
 
-export async function registerUser (user: TUser){
-    try {
-        await UserModal.create(user);
-    } catch (error){
-        throw (error)
-    }
+export async function registerUser (user: TUser): Promise<null | TUser> {
+   const newUser =  await UserModal.create(user);
+   return newUser ? newUser : null 
 }
 
-export async function findUserByUsername(user: TUser) {
-    const {username} = user;
-    try {
-       return await UserModal.findOne({username});
-    } catch (error) {
-        throw (error)
-    } 
+export async function findUserByUsername(username: string): Promise<null | TUser> {
+    const userExists =  await UserModal.findOne({username});
+    return userExists? userExists: null
 }

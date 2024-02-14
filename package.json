@@ -5,20 +5,25 @@
   "main": "backend/server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx ts-node backend/server"
+    "start": "npx ts-node backend/server",
+    "server": "nodemon backend/server"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "nodemon": "^3.0.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {
     "@types/express": "^4.17.21",
+    "bcrypt": "^5.1.1",
     "colors": "^1.4.0",
     "dotenv": "^16.4.2",
     "express": "^4.18.2",
+    "http-status-codes": "^2.3.0",
     "mongoose": "^8.1.1"
   }
 }
