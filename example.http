@@ -7,3 +7,27 @@ Content-type: application/json
     "username": "test3",
     "password": "test111"
 }
+
+###
+
+POST http://localhost:5000/app/users/login
+Content-type: application/json
+
+{
+    "username": "test3",
+    "password": "test111"
+}
+
+
+
+
+
+###
+
+GET http://localhost:5000/app/boards/
+Content-type: application/json
+Authorization: Bereor eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjVjY2M5ZDc0NTVjODEyNTI5MjdlZTM4IiwiaWF0IjoxNzA4MDA4NjU0LCJleHAiOjE3MDgwMTIyNTR9.RBsDA7DniijSgcinPlQYR-Zo1geCnApkw6qfqPerzMo
+
+
+
+
