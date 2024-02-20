@@ -7,10 +7,13 @@ import { TO_BOARDS, TO_LOGIN, TO_REGISTER } from '../../utils/route-constants';
 import LoginPage from '../../pages/login-page/login-page';
 import RegisterPage from '../../pages/register-page/register-page';
 import BoardPage from '../../pages/board-page/board-page';
+import { CssBaseline } from '@mui/material';
 
 
 const App = (): JSX.Element => {
   return (
+    <>
+    <CssBaseline />
     <Routes>
         <Route path="/"  element={<Layout/>}>
             <Route index  element={<MainPage/>}/>
@@ -20,6 +23,7 @@ const App = (): JSX.Element => {
             <Route path={`${TO_BOARDS}`} element={<BoardPage/>}/> 
         </Route>
     </Routes>
+    </>
   );
 
 }
