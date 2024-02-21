@@ -3,7 +3,7 @@ import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useUserStore } from '../../services/user/user-store';
-import { USER_ROUTE } from '../../utils/constants';
+import { LOGIN_ROUTE } from '../../utils/constants';
 import { useEffect } from 'react';
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -15,7 +15,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const fetchUser = async () => {
-  const response = await fetch(USER_ROUTE, {
+  const response = await fetch(LOGIN_ROUTE, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
