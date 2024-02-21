@@ -15,7 +15,16 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const fetchUser = async () => {
-  const response = await fetch(USER_ROUTE);
+  const response = await fetch(USER_ROUTE, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      username: 'test3',
+      password: 'test111',
+    }),
+  });
   return response.json();
 };
 
