@@ -1,6 +1,6 @@
 ###
 
-POST http://localhost:5001/app/users/
+POST http://localhost:5000/app/users/
 Content-type: application/json
 
 {
