@@ -3,7 +3,7 @@ import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useUserStore } from '../../services/user/user-store';
-import { LOGIN_ROUTE } from '../../utils/constants';
+import { LOGIN_ROUTE, REGISTER_ROUTE } from '../../utils/constants';
 import { useEffect } from 'react';
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -15,13 +15,13 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const fetchUser = async () => {
-  const response = await fetch(LOGIN_ROUTE, {
+  const response = await fetch(REGISTER_ROUTE, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      username: 'test3',
+      username: 'test4',
       password: 'test111',
     }),
   });
@@ -31,13 +31,13 @@ const fetchUser = async () => {
 const MainPage = () => {
   const { setUser } = useUserStore();
 
-  const { data } = useQuery({ queryKey: ['groups'], queryFn: fetchUser });
+  // const { data } = useQuery({ queryKey: ['groups'], queryFn: fetchUser });
 
-  useEffect(() => {
-    if (data) {
-      setUser(data);
-    }
-  }, [data, setUser]);
+  // useEffect(() => {
+  //   if (data) {
+  //     setUser(data);
+  //   }
+  // }, [data, setUser]);
 
   return (
     <Stack

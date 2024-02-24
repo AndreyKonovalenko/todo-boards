@@ -4,7 +4,6 @@ import { devtools } from 'zustand/middleware';
 type TUser = {
   _id: string;
   username: string;
-  token: string;
 };
 type TUserState = {
   user: TUser | null;
