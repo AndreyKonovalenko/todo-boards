@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -31,22 +31,15 @@ const registerUser = async (user: {
 };
 
 export default function Register(): JSX.Element {
-  // const { data, refetch } = useQuery({
-  //   queryKey: ['user', user],
-  //   queryFn: () => registerUser(user),
-  // });
+  const mutation = useMutation({
+    mutationFn: (formData) => {
+      return fetch(REGISTER_ROUTE, formData);
+    },
+  });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    registerUser({
-      username: data.get('username'),
-      password: data.get('password'),
-    });
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    mutation.mutate(new FormData(event.currentTarget));
   };
 
   return (
