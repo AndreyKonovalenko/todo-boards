@@ -7,10 +7,10 @@ import { CustomRequest } from '../middleware/protected';
 
 // GET: borads/
 export const getBoards = async (req: Request, res: Response) => {
-  console.log('request from getBoards', (req as CustomRequest).token);
-  //     try {
-  //         return  res.status(StatusCodes.OK).json({message: "test boards route" })
-  //     } catch(error){
-  //         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(getErrorMessage(error))
-  //     }
+  console.log('get boards')
+      try {
+          return  res.status(StatusCodes.OK).json({message: "test boards route" })
+      } catch(error){
+          return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(getErrorMessage(error))
+      }
 };

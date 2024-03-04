@@ -12,9 +12,9 @@ export const protect = async (
   res: Response,
   next: NextFunction
 ) => {
+  const token = req.cookies.jwt;
+  console.log(token)
   try {
-    //        need to get token from cookie not from header
-    const token = req.header('Authorization')?.replace('Bereor ', '');
     if (!token) {
       return res
         .status(StatusCodes.UNAUTHORIZED)

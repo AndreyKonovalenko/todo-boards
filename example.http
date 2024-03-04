@@ -26,8 +26,6 @@ Content-type: application/json
 
 GET http://localhost:5002/app/boards/
 Content-type: application/json
-Authorization: Bereor eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjVjY2M5ZDc0NTVjODEyNTI5MjdlZTM4IiwiaWF0IjoxNzA4MDA4NjU0LCJleHAiOjE3MDgwMTIyNTR9.RBsDA7DniijSgcinPlQYR-Zo1geCnApkw6qfqPerzMo
-
 
 
 ###
