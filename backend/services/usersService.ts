@@ -24,11 +24,13 @@ export function generateToken(
   const token = jwt.sign({ user_id }, process.env.JWT_SECRET!, {
     expiresIn: process.env.TOKEN_EXPIRES_IN,
   });
-
   res.cookie('jwt', token, {
     httpOnly: true,
     secure: process.env.NODE_ENV !== 'development',
     sameSite: 'strict',
-    maxAge: parseInt(process.env.TOKEN_EXPIRES_IN!),
+    maxAge: parseInt('3600000'),
   });
 }
+
+
+// need to add maxAge to env variable in milliseconds

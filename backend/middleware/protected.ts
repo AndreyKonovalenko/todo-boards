@@ -12,8 +12,10 @@ export const protect = async (
   res: Response,
   next: NextFunction
 ) => {
-  const token = req.cookies.jwt;
-  console.log(token)
+  console.log('auth middlewaer')
+  let token 
+  token = req.cookies.jwt;
+  console.log(req.cookies)
   try {
     if (!token) {
       return res

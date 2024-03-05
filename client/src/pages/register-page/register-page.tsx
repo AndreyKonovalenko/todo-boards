@@ -31,15 +31,16 @@ const registerUser = async (user: {
 };
 
 export default function Register(): JSX.Element {
-  const mutation = useMutation({
-    mutationFn: (formData) => {
-      return fetch(REGISTER_ROUTE, formData);
-    },
-  });
+  // const mutation = useMutation({
+  //   mutationFn: (formData) => {
+  //     return fetch(REGISTER_ROUTE, formData);
+  //   },
+  // });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    mutation.mutate(new FormData(event.currentTarget));
+    console.log("register")
+    // mutation.mutate(new FormData(event.currentTarget));
   };
 
   return (
