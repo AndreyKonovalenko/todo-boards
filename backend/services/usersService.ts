@@ -28,9 +28,8 @@ export function generateToken(
     httpOnly: true,
     secure: process.env.NODE_ENV !== 'development',
     sameSite: 'strict',
-    maxAge: parseInt('3600000'),
+    maxAge: parseInt(process.env.TOKEN_EXPIRES_IN!),
   });
 }
-
 
 // need to add maxAge to env variable in milliseconds

@@ -58,3 +58,13 @@ export const login = async (req: Request, res: Response) => {
       .send(getErrorMessage(error));
   }
 };
+
+// POST: users/logout
+// clear cookies
+export const logout = (req: Request, res: Response) => {
+  res.cookie('jwt', '', {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+  res.status(StatusCodes.OK).json({ message: 'Logged out successfully' });
+};

@@ -12,10 +12,8 @@ export const protect = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log('auth middlewaer')
-  let token 
+  let token;
   token = req.cookies.jwt;
-  console.log(req.cookies)
   try {
     if (!token) {
       return res
@@ -23,7 +21,6 @@ export const protect = async (
         .send(ReasonPhrases.UNAUTHORIZED);
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET!);
-    console.log(decoded);
     (req as CustomRequest).token = decoded;
     next();
   } catch (error) {
