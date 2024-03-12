@@ -1,11 +1,14 @@
 import mongoose, { Schema, InferSchemaType } from 'mongoose';
+import { Model } from 'mongoose';
 import bcrypt from 'bcrypt';
 
 export interface IUser extends mongoose.Document {
   username: string;
   password: string;
 }
-const userSchema = new Schema<IUser>({
+type TUserModal = Model<IUser>;
+
+const userSchema = new Schema<IUser, TUserModal>({
   username: { type: String, required: true },
   password: { type: String, required: true },
 });
@@ -19,7 +22,10 @@ userSchema.pre('save', async function (next) {
   }
   next();
 });
-export const UserModal = mongoose.model('User', userSchema);
+export const UserModal: TUserModal = mongoose.model<IUser, TUserModal>(
+  'User',
+  userSchema
+);
 
 const cardSchema = new Schema({
   title: { type: String, required: true },

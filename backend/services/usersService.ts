@@ -1,12 +1,10 @@
-import { Types } from 'mongoose';
+import { Types, HydratedDocument } from 'mongoose';
 import { UserModal, IUser } from '../models';
 import { Response } from 'express';
 import jwt from 'jsonwebtoken';
 
 export async function registerUser(user: IUser): Promise<null | IUser> {
-  console.log(user);
-  const newUser: any = await UserModal.create(user);
-  console.log(newUser);
+  const newUser: IUser = await UserModal.create(user);
   return newUser ? newUser : null;
 }
 
@@ -15,6 +13,13 @@ export async function findUserByUsername(
 ): Promise<null | IUser> {
   const userExists = await UserModal.findOne({ username });
   return userExists ? userExists : null;
+}
+
+export async function findUserByUserId(
+  id: string
+): Promise<null | HydratedDocument<IUser>> {
+  const user = await UserModal.findById(id).select('-password');
+  return user ? user : null;
 }
 
 export function generateToken(
