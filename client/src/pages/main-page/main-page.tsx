@@ -5,7 +5,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useUserStore } from '../../services/user/user-store';
 import { LOGIN_ROUTE, REGISTER_ROUTE } from '../../utils/constants';
 import { useEffect } from 'react';
-import { fetchUser } from '../../utils/todo-boards-api';
+import api from '../../utils/todo-boards-api'
 
 const Item = styled(Paper)(({ theme }) => ({
 	backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -17,14 +17,13 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const MainPage = () => {
 	const { setUser } = useUserStore();
+	const { data } = useQuery({ queryKey: ['groups'], queryFn: api.boards.fetchBoards });
 
-	// const { data } = useQuery({ queryKey: ['groups'], queryFn: fetchUser });
-
-	// useEffect(() => {
-	// 	if (data) {
-	// 		setUser(data);
-	// 	}
-	// }, [data, setUser]);
+	useEffect(() => {
+		if (data) {
+			setUser(data);
+		}
+	}, [data, setUser]);
 
 	return (
 		<Stack

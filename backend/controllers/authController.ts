@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import { getErrorMessage } from '../utils';
-import { registerUser, findUserByUsername } from '../services/usersService';
+import { registerUser, findUserByUsername } from '../services/authService';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
-import { generateToken } from '../services/usersService';
+import { generateToken } from '../services/authService';
 import { IUser } from '../models';
 import { Schema } from 'mongoose';
 
-// POST: users/
+// POST: auth/
 export const register = async (req: Request, res: Response) => {
   try {
     const { username } = req.body;
@@ -31,7 +31,7 @@ export const register = async (req: Request, res: Response) => {
   }
 };
 
-// POST: users/login
+// POST: auth/login
 export const login = async (req: Request, res: Response) => {
   const { username, password } = req.body;
   try {
@@ -59,7 +59,7 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
-// POST: users/logout
+// POST: auth/logout
 // clear cookies
 export const logout = (req: Request, res: Response) => {
   res.cookie('jwt', '', {

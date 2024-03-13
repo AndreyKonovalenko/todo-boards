@@ -4,7 +4,7 @@ import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 import { getErrorMessage } from '../utils';
 import { IUser } from '../models';
 import { HydratedDocument } from 'mongoose';
-import { findUserByUserId } from '../services/usersService';
+import { findUserByUserId } from '../services/authService';
 
 export interface CustomRequest extends Request {
 	user: HydratedDocument<IUser> | null;

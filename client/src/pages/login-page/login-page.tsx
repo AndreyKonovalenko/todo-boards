@@ -11,16 +11,20 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
+import { useMutation } from '@tanstack/react-query';
+import api from '../../utils/todo-boards-api';
+
 
 export default function Login() {
+  const {mutate } = useMutation({
+    mutationFn: api.auth.login
+  });
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+    mutate({username: data.get('email') as string, password: data.get('password') as string})
+  }
   return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
