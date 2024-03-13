@@ -7,26 +7,26 @@ import { HydratedDocument } from 'mongoose';
 import { findUserByUserId } from '../services/usersService';
 
 export interface CustomRequest extends Request {
-  user: HydratedDocument<IUser> | null;
+	user: HydratedDocument<IUser> | null;
 }
 
 export const protect = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
+	req: Request,
+	res: Response,
+	next: NextFunction
 ) => {
-  let token;
-  token = req.cookies.jwt;
-  try {
-    if (!token) {
-      return res
-        .status(StatusCodes.UNAUTHORIZED)
-        .send(ReasonPhrases.UNAUTHORIZED);
-    }
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
-    (req as CustomRequest).user = await findUserByUserId(decoded.user_id);
-    next();
-  } catch (error) {
-    return res.status(StatusCodes.UNAUTHORIZED).send(getErrorMessage(error));
-  }
+	let token;
+	token = req.cookies.jwt;
+	try {
+		if (!token) {
+			return res
+				.status(StatusCodes.UNAUTHORIZED)
+				.send(ReasonPhrases.UNAUTHORIZED);
+		}
+		const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
+		(req as CustomRequest).user = await findUserByUserId(decoded.user_id);
+		next();
+	} catch (error) {
+		return res.status(StatusCodes.UNAUTHORIZED).send(getErrorMessage(error));
+	}
 };

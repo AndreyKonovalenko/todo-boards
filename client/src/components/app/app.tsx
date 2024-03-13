@@ -13,22 +13,22 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const queryClient = new QueryClient();
 
 const App = (): JSX.Element => {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Routes>
-          <Route path='/' element={<Layout />}>
-            <Route index element={<MainPage />} />
-            <Route path={TO_LOGIN} element={<LoginPage />} />
-            <Route path={TO_REGISTER} element={<RegisterPage />} />
-            {/* <Route path={`${TO_BOARDS}/:id`} element={<BoardPage/>}/> */}
-            <Route path={`${TO_BOARDS}`} element={<BoardPage />} />
-          </Route>
-        </Routes>
-      </ThemeProvider>
-    </QueryClientProvider>
-  );
+	return (
+		<QueryClientProvider client={queryClient}>
+			<ThemeProvider theme={theme}>
+				<CssBaseline />
+				<Routes>
+					<Route path='/' element={<Layout />}>
+						<Route index element={<MainPage />} />
+						<Route path={TO_LOGIN} element={<LoginPage />} />
+						<Route path={TO_REGISTER} element={<RegisterPage />} />
+						{/* <Route path={`${TO_BOARDS}/:id`} element={<BoardPage/>}/> */}
+						<Route path={`${TO_BOARDS}`} element={<BoardPage />} />
+					</Route>
+				</Routes>
+			</ThemeProvider>
+		</QueryClientProvider>
+	);
 };
 
 export default App;
