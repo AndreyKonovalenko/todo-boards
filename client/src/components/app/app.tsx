@@ -9,6 +9,8 @@ import BoardPage from '../../pages/board-page/board-page';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { theme } from '../../styles/theme';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const queryClient = new QueryClient();
 
@@ -26,6 +28,7 @@ const App = (): JSX.Element => {
 						<Route path={`${TO_BOARDS}`} element={<BoardPage />} />
 					</Route>
 				</Routes>
+				<ToastContainer />
 			</ThemeProvider>
 		</QueryClientProvider>
 	);
