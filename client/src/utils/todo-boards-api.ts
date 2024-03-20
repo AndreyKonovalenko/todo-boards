@@ -1,14 +1,10 @@
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import { toast } from 'react-toastify';
+import { TUser } from '../services/user/user-store';
 
 export type TForm = {
 	[key: string]: string;
 };
-
-// type TUser = {
-// 	id: string;
-// 	username: string;
-// };
 
 axios.defaults.baseURL = 'api/';
 
@@ -44,7 +40,7 @@ const request = {
 };
 
 const auth = {
-	login: (data: TForm) => request.post<TForm>('/auth/login', data),
+	login: (data: TForm) => request.post<TUser>('/auth/login', data),
 	logout: () => request.post<void>('/auth/logout'),
 };
 

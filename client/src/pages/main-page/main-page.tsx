@@ -16,17 +16,10 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const MainPage = () => {
-	const { setUser } = useUserStore();
 	const { data } = useQuery({
 		queryKey: ['groups'],
 		queryFn: api.boards.fetchBoards,
 	});
-
-	useEffect(() => {
-		if (data) {
-			setUser(data);
-		}
-	}, [data, setUser]);
 
 	return (
 		<Stack
