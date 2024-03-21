@@ -12,17 +12,21 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useUserStore } from '../../services/user/user-store';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useMutation } from '@tanstack/react-query';
 import api from '../../utils/todo-boards-api';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Login() {
 	const { mutate, data } = useMutation({
 		mutationFn: api.auth.login,
 	});
 
+	const location = useLocation();
+	const navigate = useNavigate();
 	const { setUser } = useUserStore();
+	const user = useUserStore((state) => state.user);
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
@@ -37,6 +41,12 @@ export default function Login() {
 			setUser(data);
 		}
 	}, [data, setUser]);
+
+	useEffect(() => {
+		if (user) {
+			navigate(location?.state?.from || '/');
+		}
+	}, [user, navigate, location]);
 
 	return (
 		<Container component='main' maxWidth='xs'>
