@@ -14,9 +14,9 @@ export const register = async (req: Request, res: Response) => {
     const userExists = await findUserByUsername(username);
     if (userExists) {
       return res
-        .status(StatusCodes.BAD_REQUEST)
+        .status(StatusCodes.CONFLICT)
         .send(
-          `${ReasonPhrases.BAD_REQUEST}: username: ${username} already exists`
+          `${ReasonPhrases.CONFLICT}: username: ${username} already exists`
         );
     }
     const user = await registerUser(req.body);
@@ -38,8 +38,8 @@ export const login = async (req: Request, res: Response) => {
     const user = await findUserByUsername(username);
     if (!user) {
       return res
-        .status(StatusCodes.BAD_REQUEST)
-        .send(`${ReasonPhrases.BAD_REQUEST}: User ${username} not found.`);
+        .status(StatusCodes.UNAUTHORIZED)
+        .send(`${ReasonPhrases.UNAUTHORIZED}: User ${username} not found.`);
     }
     if (user && bcrypt.compareSync(password, user.password)) {
       generateToken(res, user._id);
@@ -49,8 +49,8 @@ export const login = async (req: Request, res: Response) => {
       });
     } else {
       return res
-        .status(StatusCodes.BAD_REQUEST)
-        .send(`${ReasonPhrases.BAD_REQUEST}: Password is not correct`);
+        .status(StatusCodes.UNAUTHORIZED)
+        .send(`${ReasonPhrases.UNAUTHORIZED}: Password is not correct`);
     }
   } catch (error) {
     return res
