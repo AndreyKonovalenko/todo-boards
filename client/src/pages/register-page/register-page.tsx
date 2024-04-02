@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { REGISTER_ROUTE } from '../../utils/constants';
+import { REGISTER_ROUTE } from '../../utils/route-constants';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 

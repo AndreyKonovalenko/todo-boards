@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from '../layout/layot';
 import MainPage from '../../pages/main-page/main-page';
-import { TO_BOARDS, TO_LOGIN, TO_REGISTER } from '../../utils/constants';
+import { TO_BOARDS, TO_LOGIN, TO_REGISTER } from '../../utils/route-constants';
 import LoginPage from '../../pages/login-page/login-page';
 import RegisterPage from '../../pages/register-page/register-page';
 import BoardPage from '../../pages/board-page/board-page';
