@@ -3,7 +3,6 @@ import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useUserStore } from '../../services/user/user-store';
-import { LOGIN_ROUTE, REGISTER_ROUTE } from '../../utils/route-constants';
 import { useEffect } from 'react';
 import api from '../../utils/todo-boards-api';
 
