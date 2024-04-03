@@ -7,14 +7,21 @@ export type TUser = {
 };
 type TUserState = {
 	user: TUser | null;
-	setUser: (user: TUser) => void;
 };
 
-export const useUserStore = create<TUserState>()(
+type Actions = {
+  setUser: (user: TUser) => void,
+  reset: () => void
+}
+const initialState: TUserState = {
+  user: null
+}
+
+export const useUserStore = create<TUserState & Actions>()(
 	devtools(
-		(set) => ({
-			user: null,
+		(set) => ({ ...initialState,
 			setUser: (user: TUser) => set({ user }),
+      reset: () => set(initialState)
 		}),
 		{ name: 'userStore' }
 	)
