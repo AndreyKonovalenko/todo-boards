@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { TO_LOGIN } from '../../utils/route-constants';
 
 import { useUserStore } from '../../services/user/user-store';
 
@@ -11,12 +12,13 @@ type TProps = {
 
 const ProtectedRoute = ({ element }: TProps): JSX.Element => {
 	const user = useUserStore((state) => state.user);
+  console.log(user)
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
 
 	useEffect(() => {
 		if (!Boolean(user)) {
-			navigate('/login', { state: { from: pathname }, replace: true });
+			navigate(TO_LOGIN, { state: { from: pathname }, replace: true });
 		}
 	}, [navigate, pathname, user]);
 

@@ -11,10 +11,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useUserStore } from '../../services/user/user-store';
-
 import { useEffect, useState } from 'react';
-
 import { useMutation } from '@tanstack/react-query';
+
 import api from '../../utils/todo-boards-api';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -85,10 +84,7 @@ export default function Login() {
 						id='password'
 						autoComplete='current-password'
 					/>
-					<FormControlLabel
-						control={<Checkbox value='remember' color='primary' />}
-						label='Remember me'
-					/>
+
 					<Button
 						type='submit'
 						fullWidth

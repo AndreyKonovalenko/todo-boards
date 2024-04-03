@@ -4,7 +4,6 @@ import HeaderBar from '../header-bar/header-bar';
 
 
 
-
 function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>

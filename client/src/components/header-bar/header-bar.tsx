@@ -2,18 +2,18 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useMutation } from '@tanstack/react-query';
 import { useUserStore } from '../../services/user/user-store';
+import { Link } from '@mui/material';
 import api from '../../utils/todo-boards-api';
 
-export default function HeaderBar() {
-  // const [auth, setAuth] = React.useState(true);
+import { TO_MAIN } from '../../utils/route-constants';
 
-  const user = useUserStore((state) => state.user);
+export default function HeaderBar() {
+
+   const user = useUserStore((state) => state.user);
   const { reset } = useUserStore();
   const { mutate } = useMutation({
 		mutationFn: api.auth.logout,
@@ -23,37 +23,14 @@ export default function HeaderBar() {
     mutate()
     reset()
   };
-
-
-
+ 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      {/* <FormGroup>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={auth}
-              onChange={handleChange}
-              aria-label="login switch"
-            />
-          }
-          label={auth ? 'Logout' : 'Login'}
-        />
-      </FormGroup> */}
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Photos
-          </Typography>
+          <Link variant="h6" sx={{ flexGrow: 1 }} underline='none' href={TO_MAIN} color="inherit" onClick={()=> console.info('click')}>
+            Todo-boards
+          </Link>
           {user && (
             <div>
               <IconButton
@@ -66,24 +43,6 @@ export default function HeaderBar() {
               >
                 <LogoutIcon/>
               </IconButton>
-              {/* <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-              </Menu> */}
             </div>
           )}
         </Toolbar>
