@@ -12,7 +12,6 @@ type TProps = {
 
 const ProtectedRoute = ({ element }: TProps): JSX.Element => {
 	const user = useUserStore((state) => state.user);
-  console.log(user)
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
 

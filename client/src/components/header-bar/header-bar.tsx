@@ -6,7 +6,8 @@ import IconButton from '@mui/material/IconButton';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useMutation } from '@tanstack/react-query';
 import { useUserStore } from '../../services/user/user-store';
-import { Link } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+import  Link  from '@mui/material/Link';
 import api from '../../utils/todo-boards-api';
 
 import { TO_MAIN } from '../../utils/route-constants';
@@ -28,7 +29,7 @@ export default function HeaderBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Link variant="h6" sx={{ flexGrow: 1 }} underline='none' href={TO_MAIN} color="inherit" onClick={()=> console.info('click')}>
+          <Link component={RouterLink} variant="h6" sx={{ flexGrow: 1 }} underline='none' to={TO_MAIN} color="inherit" onClick={()=> console.info('click')}>
             Todo-boards
           </Link>
           {user && (

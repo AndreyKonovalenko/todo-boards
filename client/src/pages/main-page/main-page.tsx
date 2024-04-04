@@ -3,7 +3,9 @@ import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useUserStore } from '../../services/user/user-store';
+import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
+import { TO_BOARDS } from '../../utils/route-constants';
 import api from '../../utils/todo-boards-api';
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -26,6 +28,7 @@ const MainPage = () => {
 			direction={{ xs: 'column', sm: 'row' }}
 			spacing={{ xs: 1, sm: 2, md: 4 }}
 			justifyContent='center'>
+      <Link to={TO_BOARDS}>TO BOARDS</Link>
 			<Item>Item 1</Item>
 			<Item>Item 2</Item>
 			<Item>Item 3</Item>
