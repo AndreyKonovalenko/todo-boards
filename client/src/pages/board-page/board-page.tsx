@@ -1,8 +1,12 @@
-const BoardPage= (): JSX.Element => {
+import { useParams } from "react-router-dom";
 
+const BoardPage= (): JSX.Element => {
+  const {name} = useParams()
+ 
     return (
         <>
-          Boards Page
+          Boards Page {name}
+          
         </>
     );
   };

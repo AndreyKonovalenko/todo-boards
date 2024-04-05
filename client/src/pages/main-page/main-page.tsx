@@ -30,7 +30,7 @@ const mockBoards = [{name: 'may', id:"1"}, {name:'augast', id: '2'}, {name: 'mar
 const boards = mockBoards.map((elem) => (<BoardCard name={elem.name} id={elem.id}  key={uuidv4()}/>))
 
 const AddBoradCard = (
-    <Card sx={{minWidth: 200, minHeight:100}}>
+    <Card sx={{minWidth: 180, minHeight:100}}>
       <Button  sx={{minHeight: 'inherit'}} fullWidth={true} onClick={()=> console.log('hew board')}> Create new board </Button>
     </Card> 
 )
@@ -49,9 +49,8 @@ const AddBoradCard = (
 		  <Stack
         mt={6}
         direction={{ xs: 'column', sm: 'row' }}
-        spacing={{ xs: 1, sm: 2, md: 4 }}
+        spacing={{ xs: 1, sm: 1, md: 4 }}
         justifyContent='left' flexWrap="wrap" useFlexGap>
-        <Link to={TO_BOARDS}>TO BOARDS</Link>
         {boards}
         {AddBoradCard}
       </Stack>          

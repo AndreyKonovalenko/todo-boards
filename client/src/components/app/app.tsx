@@ -28,7 +28,7 @@ const App = (): JSX.Element => {
 						<Route path={TO_LOGIN} element={<LoginPage />} />
 						<Route path={TO_REGISTER} element={<RegisterPage />} />
 						{/* <Route path={`${TO_BOARDS}/:id`} element={<BoardPage/>}/> */}
-						<Route path={`${TO_BOARDS}`} element={<ProtectedRoute element={<BoardPage />} />} />
+						<Route path={`${TO_BOARDS}/:name`} element={<ProtectedRoute element={<BoardPage />} />} />
 					</Route>
 				</Routes>
 				<ToastContainer />
