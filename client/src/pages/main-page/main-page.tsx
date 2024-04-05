@@ -5,8 +5,11 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { TO_BOARDS } from '../../utils/route-constants';
 import api from '../../utils/todo-boards-api';
-import { Box, Container, Divider, Typography } from '@mui/material';
+import { Box, CardActions, Card, Container, Divider, Typography, Button } from '@mui/material';
 import { Person } from '@mui/icons-material';
+import BoardCard from '../../components/board-card/board-card';
+import {v4 as uuidv4} from 'uuid';
+
 // import { theme } from '../../styles/theme';
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -23,6 +26,14 @@ const MainPage = () => {
 		queryFn: api.boards.fetchBoards,
 	});
 
+const mockBoards = [{name: 'may', id:"1"}, {name:'augast', id: '2'}, {name: 'march', id: '3'}];
+const boards = mockBoards.map((elem) => (<BoardCard name={elem.name} id={elem.id}  key={uuidv4()}/>))
+
+const AddBoradCard = (
+    <Card sx={{minWidth: 200, minHeight:100}}>
+      <Button  sx={{minHeight: 'inherit'}} fullWidth={true} onClick={()=> console.log('hew board')}> Create new board </Button>
+    </Card> 
+)
 
 
 	return (
@@ -39,11 +50,10 @@ const MainPage = () => {
         mt={6}
         direction={{ xs: 'column', sm: 'row' }}
         spacing={{ xs: 1, sm: 2, md: 4 }}
-        justifyContent='center'>
+        justifyContent='left' flexWrap="wrap" useFlexGap>
         <Link to={TO_BOARDS}>TO BOARDS</Link>
-        <Item>Item 1</Item>
-        <Item>Item 2</Item>
-        <Item>Item 3</Item>
+        {boards}
+        {AddBoradCard}
       </Stack>          
     </Container>
 	);
