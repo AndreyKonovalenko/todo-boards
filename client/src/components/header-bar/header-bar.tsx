@@ -28,10 +28,10 @@ export default function HeaderBar() {
   };
  
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <AppBar position="static">
         <Toolbar>
-          <Box sx={{ flexGrow: 1 }}>
+          <Box sx={{flexGrow: 1}}>
             <Link component={RouterLink} variant="h6"  underline='none' to={TO_MAIN} color="inherit" onClick={()=> console.info('click')}>
               Todo-boards
             </Link>

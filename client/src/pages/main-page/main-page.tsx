@@ -7,7 +7,7 @@ import { TO_BOARDS } from '../../utils/route-constants';
 import api from '../../utils/todo-boards-api';
 import { Box, CardActions, Card, Container, Divider, Typography, Button } from '@mui/material';
 import { Person } from '@mui/icons-material';
-import BoardCard from '../../components/board-card/board-card';
+import BoardCard from '../../components/main-page-components/board-card/board-card';
 import {v4 as uuidv4} from 'uuid';
 
 // import { theme } from '../../styles/theme';
@@ -37,8 +37,8 @@ const AddBoradCard = (
 
 
 	return (
-    <Container component='main' maxWidth='md'>
-      <Stack direction='row' sx={{marginTop: 8}} spacing={2}>
+    <Box sx={{margin: 10}}>
+      <Stack direction='row' spacing={2}>
         <Person fontSize="large" sx={(theme)=>({
           color: theme.palette.text.secondary
         })}/>
@@ -54,7 +54,7 @@ const AddBoradCard = (
         {boards}
         {AddBoradCard}
       </Stack>          
-    </Container>
+    </Box>
 	);
 };
 export default MainPage;

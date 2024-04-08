@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography, CardActionArea, Link } from "@mui/material";
 import {Link as RouterLink} from 'react-router-dom';
-import { TO_BOARDS } from "../../utils/route-constants";
+import { TO_BOARDS } from "../../../utils/route-constants";
 
 type TBoradCardProps= {
   name: string,
