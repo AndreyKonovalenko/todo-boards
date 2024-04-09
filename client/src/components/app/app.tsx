@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Layout from '../layout/layot';
+import Layout from '../layout/layout';
 import MainPage from '../../pages/main-page/main-page';
 import { TO_BOARDS, TO_LOGIN, TO_REGISTER } from '../../utils/route-constants';
 import LoginPage from '../../pages/login-page/login-page';
