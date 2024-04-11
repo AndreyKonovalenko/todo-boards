@@ -1,5 +1,6 @@
 import { Box, Container, Paper, Typography, Stack , useTheme} from "@mui/material";
 import { useParams } from "react-router-dom";
+import BoardColumn from "../../components/boards-page-components/board-column/board-column";
 
 const BoardPage= (): JSX.Element => {
   const {name} = useParams()
@@ -13,15 +14,11 @@ const BoardPage= (): JSX.Element => {
             {name}
           </Typography> 
         </Paper>
-        <Container sx={{pt:3}}>
-          <Stack direction='row'spacing={2}>
-            <Paper elevation={3} sx={{height: spacing(34), width: spacing(34), }} >
-            </Paper>
+          <Stack direction='row'spacing={2} sx={{p:2}}>
+            <BoardColumn title="to Do"/>
             <Paper elevation={3} sx={{height: spacing(34), width: spacing(34), }} >
             </Paper>
           </Stack>
-          
-        </Container>
       </Box>          
     );
   };
