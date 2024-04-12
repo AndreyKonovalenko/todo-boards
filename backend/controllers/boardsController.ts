@@ -16,3 +16,14 @@ export const getBoards = async (req: Request, res: Response) => {
       .send(getErrorMessage(error));
   }
 };
+
+// POST: boards/
+
+// export const addBoard = asyncHandler(async (req, res) => {
+//   const quiz = await Quiz.create({
+//     title: req.body.title,
+//     threshold: req.body.threshold,
+//   });
+
+//   res.status(200).json(quiz);
+// });
