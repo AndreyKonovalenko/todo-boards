@@ -1,5 +1,5 @@
 import { Paper, useTheme } from "@mui/material"
-const BoardColumn = (props: {title: string}) => {
+const BoardList = (props: {title: string}) => {
   const {spacing} = useTheme();
   const {title} = props;
   return(
@@ -8,4 +8,4 @@ const BoardColumn = (props: {title: string}) => {
   </Paper>)
 }
 
-export default BoardColumn
+export default BoardList;

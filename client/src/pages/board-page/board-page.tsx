@@ -1,11 +1,21 @@
-import { Box, Container, Paper, Typography, Stack , useTheme} from "@mui/material";
+import { Box, Paper, Typography, Stack , useTheme, Button, Card} from "@mui/material";
 import { useParams } from "react-router-dom";
-import BoardColumn from "../../components/boards-page-components/board-column/board-column";
+import BoardList from "../../components/boards-page-components/board-list/board-list";
+
+
+
 
 const BoardPage= (): JSX.Element => {
   const {name} = useParams()
   const {spacing} = useTheme();
- 
+
+  const AddColumn = (
+    <Card sx={{width: spacing(34) , height:spacing(4)}}>
+      <Button  fullWidth={true} onClick={()=> console.log('hew column')}> Add new list</Button>
+    </Card> 
+  )
+
+
     return (
 
       <Box sx={{height: '100%', display: 'flex', flexDirection: 'column'}}>
@@ -15,9 +25,9 @@ const BoardPage= (): JSX.Element => {
           </Typography> 
         </Paper>
           <Stack direction='row'spacing={2} sx={{p:2}}>
-            <BoardColumn title="to Do"/>
-            <Paper elevation={3} sx={{height: spacing(34), width: spacing(34), }} >
-            </Paper>
+            <BoardList title="to Do"/>
+            <BoardList title='in progress'/>
+            {AddColumn}
           </Stack>
       </Box>          
     );
