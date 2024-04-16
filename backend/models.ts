@@ -42,28 +42,31 @@ export const CardModal = mongoose.model<ICard, TCardModal>('Card', cardSchema);
 // list
 export interface IList extends mongoose.Document {
   title: string;
-  cards?: [Types.ObjectId];
+  creater_id: Types.ObjectId;
+  cards?: Array<Types.ObjectId>;
 }
 type TListModel = Model<IList>
 const listSchema = new Schema<IList, TListModel>({
 	title: { type: String, required: true },
-	cards: [{ type: Schema.Types.ObjectId, ref: 'Card' }],
+  creater_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+	cards: Array<{ type: Schema.Types.ObjectId, ref: 'Card' }>,
 });
 export const ListModal = mongoose.model<IList, TListModel>('List', listSchema);
 
 // board
-export interface IBoard extends mongoose.Document {
+export type TBoard = {
   title: string;
-  user_id: Types.ObjectId;
-  lists?: [Types.ObjectId]
+  creater_id: Types.ObjectId;
+  lists?: Array<Types.ObjectId>
 }
+// need to rewrite TBoard to Board Document
+export type TBoardDocument = TBoard & mongoose.Document;
+type TBoardModel = Model<TBoard & mongoose.Document>  
 
-type TBoardModel = Model<IBoard>  
-
-const boardSchema = new Schema<IBoard, TBoardModel>({
+const boardSchema = new Schema<TBoardDocument, TBoardModel>({
 	title: { type: String, required: true },
-	user_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-	lists: [{ type: Schema.Types.ObjectId, ref: 'List' }],
+	creater_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+	lists: Array<{ type: Schema.Types.ObjectId, ref: 'List' }>,
 });
 
-export const BoardModal = mongoose.model<IBoard, TBoardModel>('Board', boardSchema);
+export const BoardModal = mongoose.model<TBoard & mongoose.Document, TBoardModel>('Board', boardSchema);

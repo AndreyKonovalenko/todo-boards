@@ -4,8 +4,7 @@ import { getErrorMessage } from '../utils';
 import { registerUser, findUserByUsername } from '../services/authService';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 import { generateToken } from '../services/authService';
-import { IUser } from '../models';
-import { Schema } from 'mongoose';
+
 
 // POST: auth/
 export const register = async (req: Request, res: Response) => {
