@@ -2,12 +2,12 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 import { getErrorMessage } from '../utils';
-import { IUser } from '../models';
+import { TUserDoument } from '../models';
 import { HydratedDocument } from 'mongoose';
 import { findUserByUserId } from '../services/authService';
 
 export interface CustomRequest extends Request {
-	user: HydratedDocument<IUser> | null;
+	user: TUserDoument | null;
 }
 
 export const protect = async (

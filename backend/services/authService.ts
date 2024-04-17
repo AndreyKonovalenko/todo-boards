@@ -1,23 +1,23 @@
 import { Types, HydratedDocument } from 'mongoose';
-import { UserModal, IUser } from '../models';
+import { UserModal, TUserDoument, TUser } from '../models';
 import { Response } from 'express';
 import jwt from 'jsonwebtoken';
 
-export async function registerUser(user: IUser): Promise<null | IUser> {
-  const newUser: IUser = await UserModal.create(user);
+export async function registerUser(user: TUser): Promise<null | TUserDoument> {
+  const newUser: TUserDoument = await UserModal.create(user);
   return newUser ? newUser : null;
 }
 
 export async function findUserByUsername(
   username: string
-): Promise<null | IUser> {
-  const userExists = await UserModal.findOne({ username });
-  return userExists ? userExists : null;
+): Promise<null | TUserDoument> {
+  const user = await UserModal.findOne({ username });
+  return user ? user : null;
 }
 
 export async function findUserByUserId(
   id: string
-): Promise<null | HydratedDocument<IUser>> {
+): Promise<null | TUserDoument> {
   const user = await UserModal.findById(id).select('-password');
   return user ? user : null;
 }

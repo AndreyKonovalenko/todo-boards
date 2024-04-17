@@ -3,15 +3,20 @@ import { Model } from 'mongoose';
 import bcrypt from 'bcrypt';
 
 // user
-export interface IUser extends mongoose.Document {
-	username: string,
-	password: string;
+
+export type TUser = {
+  username: string,
+  password: string;
 }
-type TUserModal = Model<IUser>;
-const userSchema = new Schema<IUser, TUserModal>({
+
+export type TUserDoument = TUser & mongoose.Document;
+type TUserModal = Model<TUserDoument>;
+
+const userSchema = new Schema<TUserDoument, TUserModal>({
 	username: { type: String, required: true, unique: true},
 	password: { type: String, required: true },
 });
+
 const saltRounds = 10;
 userSchema.pre('save', async function (next) {
 	const user = this;
@@ -20,38 +25,43 @@ userSchema.pre('save', async function (next) {
 	}
 	next();
 });
-export const UserModal: TUserModal = mongoose.model<IUser, TUserModal>(
+export const UserModal: TUserModal = mongoose.model<TUserDoument, TUserModal>(
 	'User',
 	userSchema
 );
 
 // card
-export interface ICard extends mongoose.Document {
+export type TCard = {
   title: string;
   description: string;
   complition: boolean;
 }
-type TCardModal = Model<ICard>
-const cardSchema = new Schema<ICard, TCardModal>({
+
+export type TCardDocument = TCard & mongoose.Document
+type TCardModal = Model<TCardDocument>
+
+const cardSchema = new Schema<TCardDocument, TCardModal>({
 	title: { type: String, required: true },
 	description: { type: String },
 	complition: { type: Boolean },
 });
-export const CardModal = mongoose.model<ICard, TCardModal>('Card', cardSchema);
+export const CardModal = mongoose.model<TCardDocument, TCardModal>('Card', cardSchema);
 
 // list
-export interface IList extends mongoose.Document {
+export type TList = {
   title: string;
   creater_id: Types.ObjectId;
   cards?: Array<Types.ObjectId>;
 }
-type TListModel = Model<IList>
-const listSchema = new Schema<IList, TListModel>({
+export type TListDocument = TList & mongoose.Document
+
+type TListModel = Model<TListDocument>
+const listSchema = new Schema<TListDocument, TListModel>({
 	title: { type: String, required: true },
   creater_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 	cards: Array<{ type: Schema.Types.ObjectId, ref: 'Card' }>,
 });
-export const ListModal = mongoose.model<IList, TListModel>('List', listSchema);
+export const ListModal = mongoose.model<TListDocument, TListModel>('List', listSchema);
 
 // board
 export type TBoard = {
@@ -61,7 +71,7 @@ export type TBoard = {
 }
 // need to rewrite TBoard to Board Document
 export type TBoardDocument = TBoard & mongoose.Document;
-type TBoardModel = Model<TBoard & mongoose.Document>  
+type TBoardModel = Model<TBoardDocument>  
 
 const boardSchema = new Schema<TBoardDocument, TBoardModel>({
 	title: { type: String, required: true },
@@ -69,4 +79,4 @@ const boardSchema = new Schema<TBoardDocument, TBoardModel>({
 	lists: Array<{ type: Schema.Types.ObjectId, ref: 'List' }>,
 });
 
-export const BoardModal = mongoose.model<TBoard & mongoose.Document, TBoardModel>('Board', boardSchema);
+export const BoardModal = mongoose.model<TBoardDocument, TBoardModel>('Board', boardSchema);
