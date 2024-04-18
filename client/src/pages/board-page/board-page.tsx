@@ -5,9 +5,23 @@ import BoardList from "../../components/boards-page-components/board-list/board-
 
 
 
+
 const BoardPage= (): JSX.Element => {
   const {name} = useParams()
   const {spacing} = useTheme();
+
+  // const { mutate, data } = useMutation({
+	// 	mutationFn: api.auth.login,
+	// });
+
+  // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+	// 	event.preventDefault();
+	// 	const data = new FormData(event.currentTarget);
+	// 	mutate({
+	// 		username: data.get('email') as string,
+	// 		password: data.get('password') as string,
+	// 	});
+	// };
 
   const AddColumn = (
     <Card sx={{width: spacing(34) , height:spacing(4)}}>

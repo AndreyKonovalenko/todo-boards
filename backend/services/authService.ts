@@ -37,4 +37,4 @@ export function generateToken(
   });
 }
 
-// need to add maxAge to env variable in milliseconds
+//  maxAge should be in env variables in milliseconds

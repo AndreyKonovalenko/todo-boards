@@ -1,6 +1,7 @@
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import { TUser } from '../services/user/user-store';
+import { TBoard } from '../services/boards/board-store';
 import { TForm } from './types';
 
 const LOGIN = '/auth/login';
@@ -35,7 +36,8 @@ const auth = {
 };
 
 const boards = {
-	fetchBoards: () => request.get<void>('/boards'),
+	fetchBoards: () => request.get<Array<TBoard>>('/boards'),
+  createBoard:(data:TBoard) => request.post<TBoard>(BOARDS, data)
 };
 
 const api = {

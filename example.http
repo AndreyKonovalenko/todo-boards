@@ -26,7 +26,16 @@ Content-type: application/json
 
 GET http://localhost:5002/api/boards/
 Content-type: application/json
-Cookie: jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjVjY2M5ZDc0NTVjODEyNTI5MjdlZTM4IiwiaWF0IjoxNzEwMzI5OTQxLCJleHAiOjE3MTAzMzM1NDF9.RhqKBRKoaPIVDsA-eBQB8whOAlk3Vjdsus47pbz4hyA
+
+
+###
+// create new board
+POST http://localhost:5002/api/boards/
+Content-type: application/json
+
+{
+    "title": "test board"
+}
 
 
 

@@ -4,15 +4,18 @@ import { StatusCodes } from 'http-status-codes';
 import { BoardModal } from '../models';
 import { getErrorMessage } from '../utils';
 import { CustomRequest } from '../middleware/protected';
-import { createBoard } from '../services/boardService';
+import { createBoard, findBoardsByCreaterId } from '../services/boardService';
 
 
 // GET: borads/
 export const getBoards = async (req: Request, res: Response) => {
   const { user } = req as CustomRequest;
   console.log({ _id: user?._id });
+
+  const boards = await findBoardsByCreaterId(user?._id)
+
   try {
-    return res.status(StatusCodes.OK).json({ message: 'test boards route' });
+    return res.status(StatusCodes.OK).json(boards);
   } catch (error) {
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -24,11 +27,11 @@ export const getBoards = async (req: Request, res: Response) => {
 export const addBoard = async (req: Request, res: Response) => {
   const { user }  = req as CustomRequest;
 
-  const board:TBoard = {
+  const board: TBoard = {
     title: req.body.title,
     creater_id: user?._id,
   }
-  const newBoard = createBoard(board)
+  const newBoard = await createBoard(board)
   try {
     return res.status(StatusCodes.OK).json(newBoard);
   } catch (error) {
@@ -37,6 +40,8 @@ export const addBoard = async (req: Request, res: Response) => {
       .send(getErrorMessage(error));
   }
 }
+
+
 
 
 // export const addBoard = asyncHandler(async (req, res) => {
