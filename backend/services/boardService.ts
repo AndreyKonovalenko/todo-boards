@@ -5,7 +5,6 @@ export async function createBoard(
 	board: TBoard
 ): Promise<null | TBoardDocument> {
 	const newBoard: TBoardDocument = await BoardModal.create(board);
-	console.log(newBoard);
 	return newBoard ? newBoard : null;
 }
 
@@ -15,6 +14,5 @@ export async function findBoardsByCreaterId(
 	const boards: Array<TBoardDocument> = await BoardModal.find({
 		creater_id: id,
 	});
-	console.log(boards);
 	return boards ? boards : null;
 }
