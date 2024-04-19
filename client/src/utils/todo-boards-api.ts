@@ -36,7 +36,7 @@ const auth = {
 };
 
 const boards = {
-	fetchBoards: () => request.get<Array<TBoard>>('/boards'),
+	fetchBoards: () => request.get<Array<TBoard>>(BOARDS),
   createBoard:(data:TBoard) => request.post<TBoard>(BOARDS, data)
 };
 

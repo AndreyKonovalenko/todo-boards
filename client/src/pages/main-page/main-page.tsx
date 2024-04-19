@@ -9,6 +9,7 @@ import { Box, CardActions, Card, Container, Divider, Typography, Button } from '
 import { Person } from '@mui/icons-material';
 import BoardCard from '../../components/main-page-components/board-card/board-card';
 import {v4 as uuidv4} from 'uuid';
+import { TBoard } from '../../services/boards/board-store';
 
 // import { theme } from '../../styles/theme';
 
@@ -20,21 +21,23 @@ const Item = styled(Paper)(({ theme }) => ({
 	color: theme.palette.text.secondary,
 }));
 
+
+const useBoards = () => {
+  return useQuery({
+    queryKey: ['boards'],
+    queryFn: api.boards.fetchBoards
+  })
+}
+
+
 const MainPage = () => {
-	const { data } = useQuery({
-		queryKey: ['groups'],
-		queryFn: api.boards.fetchBoards,
-	});
-
-const mockBoards = [{name: 'may', id:"1"}, {name:'augast', id: '2'}, {name: 'march', id: '3'}];
-const boards = mockBoards.map((elem) => (<BoardCard name={elem.name} id={elem.id}  key={uuidv4()}/>))
-
-const AddBoradCard = (
+	const { data } = useBoards()
+  const AddBoradCard = (
     <Card sx={{minWidth: 180, minHeight:100}}>
       <Button  sx={{minHeight: 'inherit'}} fullWidth={true} onClick={()=> console.log('hew board')}> Create new board </Button>
     </Card> 
 )
-
+const boards = data ? data.map((element: TBoard) => <BoardCard name={element.title} id={element._id} key={uuidv4()}/>): [] 
 
 	return (
     <Box sx={{margin: 10}}>
