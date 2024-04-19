@@ -37,7 +37,7 @@ const MainPage = () => {
       <Button  sx={{minHeight: 'inherit'}} fullWidth={true} onClick={()=> console.log('hew board')}> Create new board </Button>
     </Card> 
 )
-const boards = data ? data.map((element: TBoard) => <BoardCard name={element.title} id={element._id} key={uuidv4()}/>): [] 
+const boards = data ? data.map((element: TBoard) => <BoardCard title={element.title} id={element._id} key={uuidv4()}/>): [] 
 
 	return (
     <Box sx={{margin: 10}}>
