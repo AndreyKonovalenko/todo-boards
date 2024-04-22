@@ -2,25 +2,15 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { Link } from 'react-router-dom';
-import { TO_BOARDS } from '../../utils/route-constants';
+import { useState } from 'react';
 import api from '../../utils/todo-boards-api';
-import { Box, CardActions, Card, Container, Divider, Typography, Button } from '@mui/material';
+import { Box, CardActions, Card, Container, Divider, Typography, Button, Popper, Fade } from '@mui/material';
 import { Person } from '@mui/icons-material';
 import BoardCard from '../../components/main-page-components/board-card/board-card';
 import {v4 as uuidv4} from 'uuid';
 import { TBoard } from '../../services/boards/board-store';
 
 // import { theme } from '../../styles/theme';
-
-const Item = styled(Paper)(({ theme }) => ({
-	backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-	...theme.typography.body2,
-	padding: theme.spacing(1),
-	textAlign: 'center',
-	color: theme.palette.text.secondary,
-}));
-
 
 const useBoards = () => {
   return useQuery({
@@ -29,15 +19,43 @@ const useBoards = () => {
   })
 }
 
-
 const MainPage = () => {
 	const { data } = useBoards()
-  const AddBoradCard = (
-    <Card sx={{minWidth: 180, minHeight:100}}>
-      <Button  sx={{minHeight: 'inherit'}} fullWidth={true} onClick={()=> console.log('hew board')}> Create new board </Button>
-    </Card> 
-)
-const boards = data ? data.map((element: TBoard) => <BoardCard title={element.title} id={element._id} key={uuidv4()}/>): [] 
+  const [open, setOpen] = useState(false)
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
+  const hadndleAddBoardClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+    setOpen((previeousOpen) =>!previeousOpen );
+  }
+
+   
+  const boards = data ? data.map((element: TBoard) => <BoardCard title={element.title} id={element._id} key={uuidv4()}/>): [] 
+
+  const AddBoardPopper =  (
+    <Popper     
+        sx={{ zIndex: 1200}}
+        open={open}
+        anchorEl={anchorEl}
+        placement={'right-end'}
+        transition
+      >
+        {({ TransitionProps }) => (
+          <Fade {...TransitionProps} timeout={350}>
+            <Paper>
+              <Typography sx={{ p: 2 }}>The content of the Popper.</Typography>
+            </Paper>
+          </Fade>
+        )}
+  </Popper>)
+
+const AddBoradCard = (
+  <>
+  {AddBoardPopper}
+  <Card sx={{minWidth: 180, minHeight:100}}>
+    <Button  sx={{minHeight: 'inherit'}} fullWidth={true} onClick={hadndleAddBoardClick}> Create new board </Button>
+  </Card>
+  </>)
 
 	return (
     <Box sx={{margin: 10}}>

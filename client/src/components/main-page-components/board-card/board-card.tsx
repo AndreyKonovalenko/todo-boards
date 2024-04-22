@@ -3,7 +3,7 @@ import {Link as RouterLink} from 'react-router-dom';
 import { TO_BOARDS } from "../../../utils/route-constants";
 
 type TBoradCardProps= {
-  name: string,
+  title: string,
   id: string
 }
 
@@ -21,14 +21,14 @@ const cardActionAreaStyled = {
 };
 
 const BoardCard = (props:TBoradCardProps) => {
-  const {name, id} = props;
+  const {title, id} = props;
   return (
-  <Link component={RouterLink} variant="h6"  underline='none' to={`${TO_BOARDS}/${name}`} color="inherit" onClick={()=> console.info(id)}> 
+  <Link component={RouterLink} variant="h6"  underline='none' to={`${TO_BOARDS}/${title}`} color="inherit" onClick={()=> console.info(id)}> 
     <Card sx={BoardCardStyled} onClick={()=> console.log(id)}> 
         <CardActionArea sx={cardActionAreaStyled}>     
             <CardContent>
               <Typography variant='h6'sx={(theme)=>({
-                    color: theme.palette.text.primary})}>{name}</Typography>
+                    color: theme.palette.text.primary})}>{title}</Typography>
             </CardContent> 
       </CardActionArea>
     </Card>
