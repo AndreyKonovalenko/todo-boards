@@ -29,33 +29,35 @@ const MainPage = () => {
     setOpen((previeousOpen) =>!previeousOpen );
   }
 
-   
   const boards = data ? data.map((element: TBoard) => <BoardCard title={element.title} id={element._id} key={uuidv4()}/>): [] 
 
   const AddBoardPopper =  (
-    <Popper     
+      <Popper     
         sx={{ zIndex: 1200}}
         open={open}
         anchorEl={anchorEl}
-        placement={'right-end'}
+        placement={'right'}
         transition
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
-            <Paper>
-              <Typography sx={{ p: 2 }}>The content of the Popper.</Typography>
+            <Paper sx={{ m: 2 }}>
+              <Typography sx={{ p: 2}}>The content of the Popper.</Typography>
             </Paper>
           </Fade>
         )}
-  </Popper>)
+    </Popper>
+)
 
 const AddBoradCard = (
   <>
-  {AddBoardPopper}
-  <Card sx={{minWidth: 180, minHeight:100}}>
-    <Button  sx={{minHeight: 'inherit'}} fullWidth={true} onClick={hadndleAddBoardClick}> Create new board </Button>
-  </Card>
-  </>)
+    {AddBoardPopper}
+    <Card sx={{minWidth: 180, minHeight:100}}>
+      <Button  sx={{minHeight: 'inherit'}} fullWidth={true} onClick={hadndleAddBoardClick}> Create new board </Button>
+    </Card>
+  </>
+  )
+
 
 	return (
     <Box sx={{margin: 10}}>
