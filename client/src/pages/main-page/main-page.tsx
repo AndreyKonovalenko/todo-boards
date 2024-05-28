@@ -1,10 +1,9 @@
-import Paper from '@mui/material/Paper';
-import Stack from '@mui/material/Stack';
+
 import { styled } from '@mui/material/styles';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import api from '../../utils/todo-boards-api';
-import { Box, CardActions, Card, Container, Divider, Typography, Button, Popper, Fade } from '@mui/material';
+import { Box, Card, Divider, Typography, Button, Popper, Fade, Stack, TextField, Paper} from '@mui/material';
 import { Person } from '@mui/icons-material';
 import BoardCard from '../../components/main-page-components/board-card/board-card';
 import {v4 as uuidv4} from 'uuid';
@@ -24,6 +23,8 @@ const MainPage = () => {
   const [open, setOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
+  const handleSubmit = () => {};
+
   const hadndleAddBoardClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
     setOpen((previeousOpen) =>!previeousOpen );
@@ -42,7 +43,26 @@ const MainPage = () => {
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <Paper sx={{ m: 2 }}>
-              <Typography sx={{ p: 2}}>The content of the Popper.</Typography>
+              <Typography sx={{ p: 2}}>Create Board</Typography>  
+              <Box component='form' onSubmit={handleSubmit} noValidate sx={{ m: 2 }}>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  id='text'
+                  label='Board title'
+                  name='text'
+                  autoComplete='text'
+                  autoFocus
+                />
+                <Button
+                  type='submit'
+                  fullWidth
+                  variant='contained'
+                  sx={{ mt: 3, mb: 2 }}>
+                  Create
+                </Button>
+              </Box>
             </Paper>
           </Fade>
         )}
