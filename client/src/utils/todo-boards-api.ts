@@ -12,12 +12,12 @@ axios.defaults.baseURL = 'api/';
 
 axios.interceptors.response.use(
 	(res) => {
-    console.log(res.data)
-    return res
-  },
+		console.log(res.data);
+		return res;
+	},
 	(error: AxiosError) => {
 		const { data } = error.response!;
-    toast.error(data as String)
+		toast.error(data as String);
 		return Promise.reject(error);
 	}
 );
@@ -27,7 +27,7 @@ const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 const request = {
 	get: <T>(url: string) => axios.get<T>(url).then(responseBody),
 	post: <T>(url: string, body?: {}) =>
-		axios.post<T>(url, body).then(responseBody)
+		axios.post<T>(url, body).then(responseBody),
 };
 
 const auth = {
@@ -37,7 +37,7 @@ const auth = {
 
 const boards = {
 	fetchBoards: () => request.get<Array<TBoard>>(BOARDS),
-  createBoard:(data:TBoard) => request.post<TBoard>(BOARDS, data)
+	createBoard: (data: TForm) => request.post<TBoard>(BOARDS, data),
 };
 
 const api = {
