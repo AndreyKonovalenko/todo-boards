@@ -7,12 +7,59 @@ import {
 	Button,
 	Card,
 	IconButton,
+	styled,
 } from '@mui/material';
+import MuiPaper, { PaperProps as MuiPaperProps } from '@mui/material/Paper';
 import { useState } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Drawer from '@mui/material/Drawer';
 import { useParams } from 'react-router-dom';
 import BoardList from '../../components/boards-page-components/board-list/board-list';
+
+const drawerWidth = 240;
+
+const Content = styled('div', {
+	shouldForwardProp: (prop) => prop !== 'open',
+})<{
+	open?: boolean;
+}>(({ theme, open }) => ({
+	flexGrow: 1,
+	height: '100%',
+	display: 'flex',
+	flexDirection: 'column',
+	transition: theme.transitions.create('margin', {
+		easing: theme.transitions.easing.sharp,
+		duration: theme.transitions.duration.leavingScreen,
+	}),
+	marginRight: -drawerWidth,
+	...(open && {
+		transition: theme.transitions.create('margin', {
+			easing: theme.transitions.easing.easeOut,
+			duration: theme.transitions.duration.enteringScreen,
+		}),
+		marginRight: 0,
+	}),
+}));
+
+interface PaperProps extends MuiPaperProps {
+	open?: boolean;
+}
+const ContenPaperBar = styled('div', {
+	shouldForwardProp: (prop) => prop !== 'open',
+})<PaperProps>(({ theme, open }) => ({
+	transition: theme.transitions.create(['margin', 'width'], {
+		easing: theme.transitions.easing.sharp,
+		duration: theme.transitions.duration.leavingScreen,
+	}),
+	...(open && {
+		width: `calc(100% - ${drawerWidth}px)`,
+		transition: theme.transitions.create(['margin', 'width'], {
+			easing: theme.transitions.easing.easeOut,
+			duration: theme.transitions.duration.enteringScreen,
+		}),
+		marginRight: drawerWidth,
+	}),
+}));
 
 const BoardPage = (): JSX.Element => {
 	const [open, setOpen] = useState(false);
@@ -26,7 +73,7 @@ const BoardPage = (): JSX.Element => {
 		setOpen(false);
 	};
 
-	const AddColumn = (
+	const AddList = (
 		<Card sx={{ width: spacing(34), height: spacing(4) }}>
 			<Button fullWidth={true} onClick={() => console.log('hew column')}>
 				{' '}
@@ -34,45 +81,44 @@ const BoardPage = (): JSX.Element => {
 			</Button>
 		</Card>
 	);
+
 	return (
 		<Box
 			sx={{
-				height: '100%',
 				display: 'flex',
-				flexDirection: 'column',
 				position: 'relative',
 			}}>
-			<Paper sx={{ p: 2 }}>
-				<Stack
-					direction='row'
-					spacing={4}
-					sx={{ justifyContent: 'space-between' }}>
-					<Typography variant='h6'>{name}</Typography>
-					<IconButton
-						size='medium'
-						aria-label='account of current user'
-						aria-controls='menu-appbar'
-						aria-haspopup='true'
-						onClick={handleDrawerOpen}
-						color='inherit'>
-						<MoreHorizIcon fontSize='medium' />
-					</IconButton>
+			<Content open={open}>
+				<Paper sx={{ p: 2 }}>
+					<Stack
+						direction='row'
+						spacing={4}
+						sx={{ justifyContent: 'space-between' }}>
+						<Typography variant='h6'>{name}</Typography>
+						<IconButton
+							size='medium'
+							aria-label='account of current user'
+							aria-controls='menu-appbar'
+							aria-haspopup='true'
+							onClick={handleDrawerOpen}
+							color='inherit'>
+							<MoreHorizIcon fontSize='medium' />
+						</IconButton>
+					</Stack>
+				</Paper>
+				<Stack direction='row' spacing={2} sx={{ p: 2 }}>
+					<BoardList title='to Do' />
+					<BoardList title='in progress' />
+					{AddList}
 				</Stack>
-			</Paper>
-			<Stack direction='row' spacing={2} sx={{ p: 2 }}>
-				<BoardList title='to Do' />
-				<BoardList title='in progress' />
-				{AddColumn}
-			</Stack>
+			</Content>
 			<Drawer
 				sx={{
-					width: '240px',
+					width: drawerWidth,
 					flexShrink: 0,
 					'& .MuiDrawer-paper': {
-						width: '240px',
+						width: drawerWidth,
 						position: 'absolute',
-						right: 0,
-						top: 0,
 					},
 				}}
 				variant='persistent'
