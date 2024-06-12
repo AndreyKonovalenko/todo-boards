@@ -27,20 +27,20 @@ const Content = styled('div', {
 	open?: boolean;
 }>(({ theme, open }) => ({
 	flexGrow: 1,
-	height: '100%',
 	display: 'flex',
 	flexDirection: 'column',
-	transition: theme.transitions.create('margin', {
+	height: 'inherit',
+	transition: theme.transitions.create(['margin', 'width'], {
 		easing: theme.transitions.easing.sharp,
 		duration: theme.transitions.duration.leavingScreen,
 	}),
-	marginRight: -drawerWidth,
 	...(open && {
-		transition: theme.transitions.create('margin', {
+		width: `calc(100% - ${drawerWidth}px)`,
+		transition: theme.transitions.create(['margin', 'width'], {
 			easing: theme.transitions.easing.easeOut,
 			duration: theme.transitions.duration.enteringScreen,
 		}),
-		marginRight: 0,
+		marginRight: drawerWidth,
 	}),
 }));
 
@@ -88,7 +88,6 @@ const BoardPage = (): JSX.Element => {
 	const AddList = (
 		<Card sx={{ width: spacing(34), height: spacing(4) }}>
 			<Button fullWidth={true} onClick={() => console.log('hew column')}>
-				{' '}
 				Add new list
 			</Button>
 		</Card>
@@ -98,6 +97,7 @@ const BoardPage = (): JSX.Element => {
 		<Box
 			sx={{
 				display: 'flex',
+				height: 'inherit',
 				position: 'relative',
 				flexDirection: 'column',
 			}}>
@@ -116,7 +116,7 @@ const BoardPage = (): JSX.Element => {
 				</Toolbar>
 			</ContentPaperBar>
 			<Content open={open}>
-				<Stack direction='row' spacing={2} sx={{ p: 2 }}>
+				<Stack direction='row' spacing={2} sx={{ p: 2, height: 'inherit' }}>
 					<BoardList title='to Do' />
 					<BoardList title='in progress' />
 					{AddList}
