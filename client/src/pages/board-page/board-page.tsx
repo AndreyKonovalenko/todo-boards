@@ -8,10 +8,13 @@ import {
 	Card,
 	IconButton,
 	styled,
+	Divider,
+	Toolbar,
 } from '@mui/material';
 import MuiPaper, { PaperProps as MuiPaperProps } from '@mui/material/Paper';
 import { useState } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Drawer from '@mui/material/Drawer';
 import { useParams } from 'react-router-dom';
 import BoardList from '../../components/boards-page-components/board-list/board-list';
@@ -44,7 +47,7 @@ const Content = styled('div', {
 interface PaperProps extends MuiPaperProps {
 	open?: boolean;
 }
-const ContenPaperBar = styled('div', {
+const ContentPaperBar = styled(MuiPaper, {
 	shouldForwardProp: (prop) => prop !== 'open',
 })<PaperProps>(({ theme, open }) => ({
 	transition: theme.transitions.create(['margin', 'width'], {
@@ -59,6 +62,15 @@ const ContenPaperBar = styled('div', {
 		}),
 		marginRight: drawerWidth,
 	}),
+}));
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+	display: 'flex',
+	alignItems: 'center',
+	padding: theme.spacing(1),
+	// // necessary for content to be below app bar
+	...theme.mixins.toolbar,
+	justifyContent: 'flex-start',
 }));
 
 const BoardPage = (): JSX.Element => {
@@ -87,25 +99,23 @@ const BoardPage = (): JSX.Element => {
 			sx={{
 				display: 'flex',
 				position: 'relative',
+				flexDirection: 'column',
 			}}>
+			<ContentPaperBar open={open}>
+				<Toolbar>
+					<Typography variant='h6' component='div' noWrap sx={{ flexGrow: 1 }}>
+						{name}
+					</Typography>
+					<IconButton
+						color='inherit'
+						aria-label='open drawer'
+						onClick={handleDrawerOpen}
+						sx={{ ...(open && { display: 'none' }) }}>
+						<MoreHorizIcon fontSize='medium' />
+					</IconButton>
+				</Toolbar>
+			</ContentPaperBar>
 			<Content open={open}>
-				<Paper sx={{ p: 2 }}>
-					<Stack
-						direction='row'
-						spacing={4}
-						sx={{ justifyContent: 'space-between' }}>
-						<Typography variant='h6'>{name}</Typography>
-						<IconButton
-							size='medium'
-							aria-label='account of current user'
-							aria-controls='menu-appbar'
-							aria-haspopup='true'
-							onClick={handleDrawerOpen}
-							color='inherit'>
-							<MoreHorizIcon fontSize='medium' />
-						</IconButton>
-					</Stack>
-				</Paper>
 				<Stack direction='row' spacing={2} sx={{ p: 2 }}>
 					<BoardList title='to Do' />
 					<BoardList title='in progress' />
@@ -124,7 +134,12 @@ const BoardPage = (): JSX.Element => {
 				variant='persistent'
 				anchor='right'
 				open={open}>
-				Drawer
+				<DrawerHeader>
+					<IconButton onClick={handleDrawerClose}>
+						<ChevronRightIcon />
+					</IconButton>
+				</DrawerHeader>
+				<Divider />
 			</Drawer>
 		</Box>
 	);
