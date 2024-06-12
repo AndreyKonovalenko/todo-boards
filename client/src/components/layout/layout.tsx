@@ -1,14 +1,15 @@
 import { Outlet } from 'react-router-dom';
+import { Box } from '@mui/material';
 import HeaderBar from '../header-bar/header-bar';
 
 const Layout = (): JSX.Element => {
 	return (
-		<div style={{ height: '100hv' }}>
+		<Box sx={{ height: '100vh' }}>
 			<HeaderBar />
-			<main style={{ height: '1000px' }}>
+			<Box sx={{ height: 'inherit' }}>
 				<Outlet />
-			</main>
-		</div>
+			</Box>
+		</Box>
 	);
 };
 

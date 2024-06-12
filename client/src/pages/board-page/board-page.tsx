@@ -125,6 +125,7 @@ const BoardPage = (): JSX.Element => {
 			<Drawer
 				sx={{
 					width: drawerWidth,
+					height: 'inherit',
 					flexShrink: 0,
 					'& .MuiDrawer-paper': {
 						width: drawerWidth,
