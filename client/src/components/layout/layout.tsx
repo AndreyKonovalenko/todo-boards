@@ -3,10 +3,10 @@ import HeaderBar from '../header-bar/header-bar';
 
 const Layout = (): JSX.Element => {
 	return (
-    <>
+		<>
 			<HeaderBar />
-      <Outlet />
-    </>
+			<Outlet />
+		</>
 	);
 };
 
@@ -26,3 +26,16 @@ export default Layout;
 //   width: 1240px;
 //   height: 912px;
 // }
+
+// mantis-free-react-admin-template
+// return (
+//   <Box sx={{ display: 'flex', width: '100%' }}>
+//     <Header />
+//     <Drawer />
+//     <Box component="main" sx={{ width: 'calc(100% - 260px)', flexGrow: 1, p: { xs: 2, sm: 3 } }}>
+//       <Toolbar />
+//       <Breadcrumbs navigation={navigation} title />
+//       <Outlet />
+//     </Box>
+//   </Box>
+// );
