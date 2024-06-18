@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import HeaderBar from '../header-bar/header-bar';
+import HeaderBar from '../components/header-bar/header-bar';
 
 const MainLayout = (): JSX.Element => {
 	return (
@@ -8,9 +8,6 @@ const MainLayout = (): JSX.Element => {
 		</>
 	);
 };
-
-
-
 
 // return (
 //   <Box sx={{ display: 'flex', width: '100%' }}>

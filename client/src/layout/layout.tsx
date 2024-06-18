@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import HeaderBar from '../header-bar/header-bar';
+import HeaderBar from '../components/header-bar/header-bar';
 
 const Layout = (): JSX.Element => {
 	return (
