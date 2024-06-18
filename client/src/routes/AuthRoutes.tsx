@@ -19,16 +19,3 @@ const AuthRoutes = {
 };
 
 export default AuthRoutes;
-
-// <Routes>
-// <Route path='/' element={<Layout />}>
-//   <Route index element={<ProtectedRoute element={<MainPage />} />} />
-//   <Route path={TO_LOGIN} element={<LoginPage />} />
-//   <Route path={TO_REGISTER} element={<RegisterPage />} />
-//   {/* <Route path={`${TO_BOARDS}/:id`} element={<BoardPage/>}/> */}
-//   <Route
-//     path={`${TO_BOARDS}/:name`}
-//     element={<ProtectedRoute element={<BoardPage />} />}
-//   />
-// </Route>
-// </Routes>
