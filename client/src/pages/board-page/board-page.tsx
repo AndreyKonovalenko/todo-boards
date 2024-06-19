@@ -29,7 +29,7 @@ const Content = styled('div', {
 	flexGrow: 1,
 	display: 'flex',
 	flexDirection: 'column',
-	height: 'inherit',
+	width: '100%',
 	transition: theme.transitions.create(['margin', 'width'], {
 		easing: theme.transitions.easing.sharp,
 		duration: theme.transitions.duration.leavingScreen,
@@ -40,7 +40,6 @@ const Content = styled('div', {
 			easing: theme.transitions.easing.easeOut,
 			duration: theme.transitions.duration.enteringScreen,
 		}),
-		marginRight: drawerWidth,
 	}),
 }));
 
@@ -50,17 +49,17 @@ interface PaperProps extends MuiPaperProps {
 const ContentPaperBar = styled(MuiPaper, {
 	shouldForwardProp: (prop) => prop !== 'open',
 })<PaperProps>(({ theme, open }) => ({
-	transition: theme.transitions.create(['margin', 'width'], {
+	width: '100%',
+	transition: theme.transitions.create('width', {
 		easing: theme.transitions.easing.sharp,
 		duration: theme.transitions.duration.leavingScreen,
 	}),
 	...(open && {
 		width: `calc(100% - ${drawerWidth}px)`,
-		transition: theme.transitions.create(['margin', 'width'], {
+		transition: theme.transitions.create('width', {
 			easing: theme.transitions.easing.easeOut,
 			duration: theme.transitions.duration.enteringScreen,
 		}),
-		marginRight: drawerWidth,
 	}),
 }));
 
@@ -68,8 +67,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 	display: 'flex',
 	alignItems: 'center',
 	padding: theme.spacing(1),
-	// // necessary for content to be below app bar
-	...theme.mixins.toolbar,
 	justifyContent: 'flex-start',
 }));
 
@@ -97,8 +94,7 @@ const BoardPage = (): JSX.Element => {
 		<Box
 			sx={{
 				display: 'flex',
-				height: 'inherit',
-				position: 'relative',
+				height: '100%',
 				flexDirection: 'column',
 			}}>
 			<ContentPaperBar open={open}>
@@ -116,7 +112,7 @@ const BoardPage = (): JSX.Element => {
 				</Toolbar>
 			</ContentPaperBar>
 			<Content open={open}>
-				<Stack direction='row' spacing={2} sx={{ p: 2, height: 'inherit' }}>
+				<Stack direction='row' spacing={2} sx={{ p: 2 }}>
 					<BoardList title='to Do' />
 					<BoardList title='in progress' />
 					{AddList}
@@ -125,11 +121,10 @@ const BoardPage = (): JSX.Element => {
 			<Drawer
 				sx={{
 					width: drawerWidth,
-					height: 'inherit',
 					flexShrink: 0,
 					'& .MuiDrawer-paper': {
 						width: drawerWidth,
-						position: 'absolute',
+						marginTop: '64px',
 					},
 				}}
 				variant='persistent'
