@@ -5,7 +5,6 @@ import {
 	Stack,
 	useTheme,
 	Button,
-	Card,
 	IconButton,
 	styled,
 	Divider,
@@ -18,7 +17,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Drawer from '@mui/material/Drawer';
 import { useParams } from 'react-router-dom';
 import BoardList from '../../components/boards-page-components/board-list/board-list';
-import { HEADER } from '../../layout/config-layout'; 
+import { HEADER } from '../../layout/config-layout';
 
 const drawerWidth = 240;
 
@@ -51,7 +50,7 @@ const ContentPaperBar = styled(MuiPaper, {
 	shouldForwardProp: (prop) => prop !== 'open',
 })<PaperProps>(({ theme, open }) => ({
 	width: '100%',
-  position: 'absolute',
+	position: 'absolute',
 	transition: theme.transitions.create('width', {
 		easing: theme.transitions.easing.sharp,
 		duration: theme.transitions.duration.leavingScreen,
@@ -70,7 +69,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 	alignItems: 'center',
 	padding: theme.spacing(1),
 	justifyContent: 'flex-start',
-  ...theme.mixins.toolbar,
+	...theme.mixins.toolbar,
 }));
 
 const BoardPage = (): JSX.Element => {
@@ -86,11 +85,11 @@ const BoardPage = (): JSX.Element => {
 	};
 
 	const AddList = (
-		<Card sx={{ width: spacing(34), height: spacing(4) }}>
-			<Button fullWidth={true} onClick={() => console.log('hew column')}>
+		<Paper sx={{ width: spacing(34), flexShrink: 0, height: spacing(4) }}>
+			<Button fullWidth={true} onClick={() => {}}>
 				Add new list
 			</Button>
-		</Card>
+		</Paper>
 	);
 
 	return (
@@ -114,15 +113,18 @@ const BoardPage = (): JSX.Element => {
 					</IconButton>
 				</Toolbar>
 			</ContentPaperBar>
-			<Content open={open} sx={{mt:`${HEADER.H_DESKTOP}px`}}>
-				<Stack direction='row' spacing={2} sx={{ p: 2, height: '100%', overflowX: 'auto' }}>
+			<Content open={open} sx={{ mt: `${HEADER.H_DESKTOP}px` }}>
+				<Stack
+					direction='row'
+					spacing={2}
+					sx={{ p: 2, height: '100%', overflowX: 'auto' }}>
 					<BoardList title='to Do' />
 					<BoardList title='in progress' />
-          <BoardList title='to Do' />
+					<BoardList title='to Do' />
 					<BoardList title='in progress' />
-          <BoardList title='to Do' />
+					<BoardList title='to Do' />
 					<BoardList title='in progress' />
-          <BoardList title='to Do' />
+					<BoardList title='to Do' />
 					<BoardList title='in progress last' />
 					{AddList}
 				</Stack>
