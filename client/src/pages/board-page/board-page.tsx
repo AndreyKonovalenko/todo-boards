@@ -7,19 +7,18 @@ import {
 	Button,
 	IconButton,
 	styled,
-	Divider,
 	Toolbar,
 } from '@mui/material';
 import MuiPaper, { PaperProps as MuiPaperProps } from '@mui/material/Paper';
 import { useState } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import Drawer from '@mui/material/Drawer';
 import { useParams } from 'react-router-dom';
 import BoardList from '../../components/boards-page-components/board-list/board-list';
-import { HEADER } from '../../layout/config-layout';
-
-const drawerWidth = 240;
+import { HEADER, drawerWidth } from '../../layout/config-layout';
+import BoardDrawer from '../../components/boards-page-components/board-drawer/board-drawer';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { TO_MAIN } from '../../utils/route-constants';
 
 const Content = styled('div', {
 	shouldForwardProp: (prop) => prop !== 'open',
@@ -64,18 +63,17 @@ const ContentPaperBar = styled(MuiPaper, {
 	}),
 }));
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-	display: 'flex',
-	alignItems: 'center',
-	padding: theme.spacing(1),
-	justifyContent: 'flex-start',
-	...theme.mixins.toolbar,
-}));
 
 const BoardPage = (): JSX.Element => {
 	const [open, setOpen] = useState(false);
 	const { name } = useParams();
 	const { spacing } = useTheme();
+  const {state, pathname} = useLocation();
+  const { board_id } = state;
+  console.log(board_id)
+
+	const navigate = useNavigate();
+
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -83,6 +81,11 @@ const BoardPage = (): JSX.Element => {
 	const handleDrawerClose = () => {
 		setOpen(false);
 	};
+
+  const handleDeleteBoard = ()=> {
+    console.log('delete Board');
+    navigate(TO_MAIN, { state: { from: pathname }, replace: true });
+  }
 
 	const AddList = (
 		<Paper sx={{ width: spacing(34), flexShrink: 0, height: spacing(4) }}>
@@ -129,25 +132,7 @@ const BoardPage = (): JSX.Element => {
 					{AddList}
 				</Stack>
 			</Content>
-			<Drawer
-				sx={{
-					width: drawerWidth,
-					flexShrink: 0,
-					'& .MuiDrawer-paper': {
-						width: drawerWidth,
-						marginTop: '64px',
-					},
-				}}
-				variant='persistent'
-				anchor='right'
-				open={open}>
-				<DrawerHeader>
-					<IconButton onClick={handleDrawerClose}>
-						<ChevronRightIcon />
-					</IconButton>
-				</DrawerHeader>
-				<Divider />
-			</Drawer>
+      <BoardDrawer open={open} handleDrawerClose={handleDrawerClose} handleDeleteBoard={handleDeleteBoard} />
 		</Box>
 	);
 };

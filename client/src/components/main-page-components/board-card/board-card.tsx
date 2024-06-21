@@ -23,8 +23,8 @@ const cardActionAreaStyled = {
 const BoardCard = (props:TBoradCardProps) => {
   const {title, id} = props;
   return (
-  <Link component={RouterLink} variant="h6"  underline='none' to={`${TO_BOARDS}/${title}`} color="inherit" onClick={()=> console.info(id)}> 
-    <Card sx={BoardCardStyled} onClick={()=> console.log(id)}> 
+  <Link component={RouterLink} variant="h6"  underline='none' to={`${TO_BOARDS}/${title.split(' ').join('-')}`} state={{board_id: id}} color="inherit" > 
+    <Card sx={BoardCardStyled}> 
         <CardActionArea sx={cardActionAreaStyled}>     
             <CardContent>
               <Typography variant='h6'sx={(theme)=>({

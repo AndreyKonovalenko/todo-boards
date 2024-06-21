@@ -1,4 +1,3 @@
-import { styled } from '@mui/material/styles';
 import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import api from '../../utils/todo-boards-api';
@@ -14,11 +13,10 @@ import {
 	TextField,
 	Paper,
 } from '@mui/material';
-import { ConstructionOutlined, Person } from '@mui/icons-material';
+import { Person } from '@mui/icons-material';
 import BoardCard from '../../components/main-page-components/board-card/board-card';
 import { v4 as uuidv4 } from 'uuid';
 import { TBoard } from '../../services/boards/board-store';
-// import { theme } from '../../styles/theme';
 
 const useBoards = () => {
 	return useQuery({
