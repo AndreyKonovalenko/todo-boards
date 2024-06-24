@@ -4,7 +4,7 @@ import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 import { BoardModal } from '../models';
 import { getErrorMessage } from '../utils';
 import { CustomRequest } from '../middleware/protected';
-import { createBoard, findBoardsByCreaterId } from '../services/boardService';
+import { createBoard, findBoardsByCreaterId, findBoardByBoradId } from '../services/boardService';
 
 // GET: borads/
 export const getBoards = async (req: Request, res: Response) => {
@@ -36,3 +36,55 @@ export const addBoard = async (req: Request, res: Response) => {
 			.send(getErrorMessage(error));
 	}
 };
+
+// DELETE: boards/:id
+
+export const deleteBoard = async (req: Request, res: Response) => {
+  const board =  await findBoardByBoradId(req.params.id)
+  console.log(board)
+  if(!board) {
+    return res
+    .status(StatusCodes.BAD_REQUEST)
+    .send(getErrorMessage(`Board by id: ${req.params.id} not found`))
+  }
+  if(board) {
+    try {
+      console.log(`id: ${req.params.id} deleted`)
+       return res
+      .status(StatusCodes.OK).json('board deleted');
+    } catch (error) {
+      return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .send(getErrorMessage(error));
+    }
+   }    
+  
+}
+
+// const deleteQuiz = asyncHandler(async (req, res) => {
+//   const quiz = await Quiz.findOne({ _id: req.params.id });
+//   if (!quiz) {
+//     res.status(400);
+//     throw new Error("Quiz not found");
+//   }
+//   if (quiz) {
+//     if (quiz.questions.length === 0) {
+//       await quiz.remove();
+//       res.status(200).json({ id: req.params.id });
+//     }
+//     if (quiz.questions.length > 0) {
+//       for (const element of quiz.questions) {
+//         const question = await Question.findOne({ _id: element });
+//         // if (!question) {
+//         //   res.status(400);
+//         //   throw new Error('Question not found');
+//         // }
+//         if (question) {
+//           await question.remove();
+//         }
+//       }
+//       await quiz.remove();
+//       res.status(200).json({ id: req.params.id });
+//     }
+//   }
+// });

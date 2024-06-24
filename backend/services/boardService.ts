@@ -16,3 +16,8 @@ export async function findBoardsByCreaterId(
 	});
 	return boards ? boards : null;
 }
+
+export async function findBoardByBoradId(id: string ): Promise<null | TBoardDocument>{
+  const board: TBoardDocument | null = await BoardModal.findOne({_id: id});
+  return board ? board: null;
+}
