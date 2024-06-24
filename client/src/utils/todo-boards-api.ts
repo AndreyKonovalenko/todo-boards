@@ -12,7 +12,6 @@ axios.defaults.baseURL = 'api/';
 
 axios.interceptors.response.use(
 	(res) => {
-		console.log(res.data);
 		return res;
 	},
 	(error: AxiosError) => {
@@ -28,6 +27,7 @@ const request = {
 	get: <T>(url: string) => axios.get<T>(url).then(responseBody),
 	post: <T>(url: string, body?: {}) =>
 		axios.post<T>(url, body).then(responseBody),
+	delete: <T>(url: string) => axios.delete<T>(url).then(responseBody),
 };
 
 const auth = {
@@ -38,6 +38,7 @@ const auth = {
 const boards = {
 	fetchBoards: () => request.get<Array<TBoard>>(BOARDS),
 	createBoard: (data: TForm) => request.post<TBoard>(BOARDS, data),
+	deleleBoard: (id: string) => request.delete<string>(`${BOARDS}/${id}`),
 };
 
 const api = {

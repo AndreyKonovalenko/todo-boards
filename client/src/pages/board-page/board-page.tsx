@@ -19,6 +19,8 @@ import BoardDrawer from '../../components/boards-page-components/board-drawer/bo
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { TO_MAIN } from '../../utils/route-constants';
+import { useQueryClient, useMutation } from '@tanstack/react-query';
+import api from '../../utils/todo-boards-api';
 
 const Content = styled('div', {
 	shouldForwardProp: (prop) => prop !== 'open',
@@ -63,17 +65,29 @@ const ContentPaperBar = styled(MuiPaper, {
 	}),
 }));
 
-
 const BoardPage = (): JSX.Element => {
+	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
 	const { name } = useParams();
 	const { spacing } = useTheme();
-  const {state, pathname} = useLocation();
-  const { board_id } = state;
-  console.log(board_id)
+	const { state, pathname } = useLocation();
+	const { board_id } = state;
 
-	const navigate = useNavigate();
+	const queryClient = useQueryClient();
+	const { mutate } = useMutation({
+		mutationFn: api.boards.deleleBoard,
+		onSuccess: () => {
+			return queryClient.invalidateQueries({
+				queryKey: ['boards'],
+				exact: true,
+			});
+		},
+	});
 
+	const handleDeleteBoard = (): void => {
+		mutate(board_id as string);
+		navigate(TO_MAIN, { state: { from: pathname }, replace: true });
+	};
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -81,11 +95,6 @@ const BoardPage = (): JSX.Element => {
 	const handleDrawerClose = () => {
 		setOpen(false);
 	};
-
-  const handleDeleteBoard = ()=> {
-    console.log('delete Board');
-    navigate(TO_MAIN, { state: { from: pathname }, replace: true });
-  }
 
 	const AddList = (
 		<Paper sx={{ width: spacing(34), flexShrink: 0, height: spacing(4) }}>
@@ -132,7 +141,11 @@ const BoardPage = (): JSX.Element => {
 					{AddList}
 				</Stack>
 			</Content>
-      <BoardDrawer open={open} handleDrawerClose={handleDrawerClose} handleDeleteBoard={handleDeleteBoard} />
+			<BoardDrawer
+				open={open}
+				handleDrawerClose={handleDrawerClose}
+				handleDeleteBoard={handleDeleteBoard}
+			/>
 		</Box>
 	);
 };
