@@ -57,12 +57,10 @@ export const deleteBoard = async (req: Request, res: Response) => {
 			board
 				.deleteOne()
 				.then((result: TResult) => {
-					console.log(result);
-					if (result.deletedCount > 1) {
-						console.log(result.deletedCount > 1);
+					if (result.deletedCount > 0) {
 						return res
 							.status(StatusCodes.OK)
-							.json(`id: ${req.params.id} deleted`);
+							.json(` boad id: ${req.params.id} deleted`);
 					} else {
 						return res
 							.status(StatusCodes.OK)
