@@ -1,10 +1,13 @@
 import { Request, Response } from 'express';
 import { TBoard } from '../models';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
-import { BoardModal } from '../models';
 import { getErrorMessage } from '../utils';
 import { CustomRequest } from '../middleware/protected';
-import { createBoard, findBoardsByCreaterId, findBoardByBoradId } from '../services/boardService';
+import {
+	createBoard,
+	findBoardsByCreaterId,
+	findBoardByBoradId,
+} from '../services/boardService';
 
 // GET: borads/
 export const getBoards = async (req: Request, res: Response) => {
@@ -38,28 +41,46 @@ export const addBoard = async (req: Request, res: Response) => {
 };
 
 // DELETE: boards/:id
-
+type TResult = {
+	acknowledged: boolean;
+	deletedCount: number;
+};
 export const deleteBoard = async (req: Request, res: Response) => {
-  const board =  await findBoardByBoradId(req.params.id)
-  console.log(board)
-  if(!board) {
-    return res
-    .status(StatusCodes.BAD_REQUEST)
-    .send(getErrorMessage(`Board by id: ${req.params.id} not found`))
-  }
-  if(board) {
-    try {
-      console.log(`id: ${req.params.id} deleted`)
-       return res
-      .status(StatusCodes.OK).json('board deleted');
-    } catch (error) {
-      return res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .send(getErrorMessage(error));
-    }
-   }    
-  
-}
+	const board = await findBoardByBoradId(req.params.id);
+	if (!board) {
+		return res
+			.status(StatusCodes.BAD_REQUEST)
+			.send(getErrorMessage(`Board by id: ${req.params.id} not found`));
+	}
+	if (board) {
+		try {
+			board
+				.deleteOne()
+				.then((result: TResult) => {
+					console.log(result);
+					if (result.deletedCount > 1) {
+						console.log(result.deletedCount > 1);
+						return res
+							.status(StatusCodes.OK)
+							.json(`id: ${req.params.id} deleted`);
+					} else {
+						return res
+							.status(StatusCodes.OK)
+							.json(` bourd id: ${req.params.id} not found `);
+					}
+				})
+				.catch((error: unknown) => {
+					return res
+						.status(StatusCodes.INTERNAL_SERVER_ERROR)
+						.send(getErrorMessage(error));
+				});
+		} catch (error) {
+			return res
+				.status(StatusCodes.INTERNAL_SERVER_ERROR)
+				.send(getErrorMessage(error));
+		}
+	}
+};
 
 // const deleteQuiz = asyncHandler(async (req, res) => {
 //   const quiz = await Quiz.findOne({ _id: req.params.id });
