@@ -41,7 +41,7 @@ export const addBoard = async (req: Request, res: Response) => {
 };
 
 // DELETE: boards/:id
-type TResult = {
+type TDeleteOneResult = {
 	acknowledged: boolean;
 	deletedCount: number;
 };
@@ -56,7 +56,7 @@ export const deleteBoard = async (req: Request, res: Response) => {
 		try {
 			board
 				.deleteOne()
-				.then((result: TResult) => {
+				.then((result: TDeleteOneResult) => {
 					if (result.deletedCount > 0) {
 						return res
 							.status(StatusCodes.OK)
