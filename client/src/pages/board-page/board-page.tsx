@@ -8,6 +8,8 @@ import {
 	IconButton,
 	styled,
 	Toolbar,
+	List,
+	ListItem,
 } from '@mui/material';
 import MuiPaper, { PaperProps as MuiPaperProps } from '@mui/material/Paper';
 import { useState } from 'react';
@@ -125,21 +127,51 @@ const BoardPage = (): JSX.Element => {
 					</IconButton>
 				</Toolbar>
 			</ContentPaperBar>
-			<Content open={open} sx={{ mt: `${HEADER.H_DESKTOP}px` }}>
-				<Stack
-					direction='row'
-					spacing={2}
-					sx={{ p: 2, height: '100%', overflowX: 'auto' }}>
-					<BoardList title='to Do' />
-					<BoardList title='in progress' />
-					<BoardList title='to Do' />
-					<BoardList title='in progress' />
-					<BoardList title='to Do' />
-					<BoardList title='in progress' />
-					<BoardList title='to Do' />
-					<BoardList title='in progress last' />
+			<Content
+				open={open}
+				sx={{ mt: `${HEADER.H_DESKTOP}px`, position: 'relative' }}>
+				<List
+					sx={{
+						left: 0,
+						right: 0,
+						bottom: 0,
+						top: 0,
+						p: 2,
+						display: 'flex',
+						overflowX: 'auto',
+						position: 'absolute',
+						flexDirection: 'row',
+					}}>
+					<ListItem>
+						<BoardList title='to Do' />
+					</ListItem>
+					<ListItem>
+						<BoardList title='in progress' />
+					</ListItem>
+					<ListItem>
+						<BoardList title='to Do' />
+					</ListItem>
+					<ListItem>
+						<BoardList title='in progress' />
+					</ListItem>
+					<ListItem>
+						<BoardList title='to Do' />
+					</ListItem>
+					<ListItem>
+						<BoardList title='in progress' />
+					</ListItem>
+					<ListItem>
+						<BoardList title='in progress' />
+					</ListItem>
+					<ListItem>
+						<BoardList title='to Do' />
+					</ListItem>
+					<ListItem>
+						<BoardList title='in progress last' />
+					</ListItem>
+
 					{AddList}
-				</Stack>
+				</List>
 			</Content>
 			<BoardDrawer
 				open={open}
