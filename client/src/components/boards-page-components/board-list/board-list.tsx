@@ -1,7 +1,6 @@
 import {
 	Box,
 	Button,
-	Paper,
 	Typography,
 	useTheme,
 	Stack,
@@ -21,8 +20,11 @@ const BoardList = (props: { title: string }) => {
 			<List
 				sx={{
 					display: 'flex',
-					overflowY: 'auto',
+					overflowX: 'auto',
+          height: '100%',
 					flexDirection: 'column',
+          flex: '1 1 auto',
+          scrollbarWidth: 'thin'
 				}}>
 				{cardsMoch.map((element) => (
 					<ListItem key={uuidv4()}>
@@ -42,13 +44,17 @@ const BoardList = (props: { title: string }) => {
 					borderRadius: spacing(2),
 					maxHeight: '100%',
 					position: 'relative',
+          flexShrink:0,
 				}}>
-				<Typography variant='h6' p={1}>
-					{title}
-				</Typography>
-				<Box>{cardsList}</Box>
-
-				<Button>+ Add a card</Button>
+				<Box sx={{flexShrink: 0}}>
+          <Typography variant='h6' p={1}>
+            {title}
+          </Typography>
+        </Box>
+				{cardsList}
+        <Box sx={{flexShrink: 0}}>
+          <Button>+ Add a card</Button>
+        </Box>
 			</Stack>
 		</Box>
 	);
