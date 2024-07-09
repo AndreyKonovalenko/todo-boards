@@ -8,18 +8,54 @@ import {
 	ListItem,
 	TextField,
 	Input,
+  styled
 } from '@mui/material';
 
 import { v4 as uuidv4 } from 'uuid';
 
 import CardComponent from '../card-component/card-component';
 import { useState } from 'react';
+
+const TextAreaStyled = styled('textarea')(({theme})=>({
+  backgroundColor: theme.palette.background.default,
+  borderRadius: '3px',
+  borderStyle: 'solid',
+  borderWidth: '2px',
+  fontSize: '30px'
+}))
+
+
+// export const STextarea = styled.textarea`
+//   background-color: ${({ theme }) => theme.colors.surface};
+//   border-color: ${({ theme }) => theme.colors.primary.light};
+//   border-radius: 3px;
+//   border-style: solid;
+//   border-width: 2px;
+//   color: ${({ theme }) => theme.colors.text.onBackground};
+//   font-size: 16px;
+//   font-weight: 700;
+//   margin-bottom: 10px;
+//   margin: 10px 0;
+//   max-width: 95%;
+//   width: 95%;
+//   resize: none;
+//   padding: 2px;
+//   overflow-y: hidden;
+//   maxlength: 5;
+//   &:hover {
+//     opacity: 1;
+//     border-color: ${({ theme }) => theme.colors.primary.main};
+//   }
+//   &:focus-visible {
+//     outline: none;
+//   }
+
+
 const BoardList = (props: { title: string }) => {
 	const { title } = props;
 	const [listTitle, setListTitle] = useState(title);
 	const { spacing, palette } = useTheme();
 	const cardsMoch: any[] = [1, 3, 4, 4, 4, 4, 4];
-
 	const cardsList =
 		cardsMoch.length > 0 ? (
 			<List
@@ -52,15 +88,12 @@ const BoardList = (props: { title: string }) => {
 					flexShrink: 0,
 				}}>
 				<Box sx={{ flexShrink: 0 }}>
-					<TextField
-						sx={{ p: spacing(1), fontWeight: '900' }}
-						fullWidth
+					<TextAreaStyled
 						id='outlined-controlled'
 						value={listTitle}
-						onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+						onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
 							setListTitle(event.target.value);
 						}}
-						variant='outlined'
 					/>
 				</Box>
 				{cardsList}
