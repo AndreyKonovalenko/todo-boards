@@ -18,10 +18,12 @@ import { useState } from 'react';
 
 const TextAreaStyled = styled('textarea')(({theme})=>({
   backgroundColor: theme.palette.background.default,
-  borderRadius: '3px',
-  borderStyle: 'solid',
-  borderWidth: '2px',
-  fontSize: '30px'
+  fontSize: theme.typography.h6.fontSize,
+  fontWeight: theme.typography.h6.fontWeight,
+  lineHeight: theme.typography.h6.lineHeight,
+  fontFamily: theme.typography.h6.fontFamily,
+  resize:'none',
+  '&:hover': {opacity: 0.1}
 }))
 
 
