@@ -17,13 +17,14 @@ import CardComponent from '../card-component/card-component';
 import { useState } from 'react';
 
 const TextAreaStyled = styled('textarea')(({theme})=>({
-  backgroundColor: theme.palette.background.default,
+  backgroundColor: theme.palette.listBackground.main,
   fontSize: theme.typography.h6.fontSize,
   fontWeight: theme.typography.h6.fontWeight,
   lineHeight: theme.typography.h6.lineHeight,
   fontFamily: theme.typography.h6.fontFamily,
+  border: 'none',
   resize:'none',
-  '&:hover': {opacity: 0.1}
+  '&:focus': { backgroundColor: theme.palette.background.default, userSelect: 'all'}
 }))
 
 
@@ -56,6 +57,7 @@ const TextAreaStyled = styled('textarea')(({theme})=>({
 const BoardList = (props: { title: string }) => {
 	const { title } = props;
 	const [listTitle, setListTitle] = useState(title);
+  const [editing, setEditing] = useState(false)
 	const { spacing, palette } = useTheme();
 	const cardsMoch: any[] = [1, 3, 4, 4, 4, 4, 4];
 	const cardsList =
@@ -83,23 +85,31 @@ const BoardList = (props: { title: string }) => {
 				spacing={2}
 				sx={{
 					width: spacing(34),
-					backgroundColor: palette.ochre.main,
+					backgroundColor: palette.listBackground.main,
 					borderRadius: spacing(2),
 					maxHeight: '100%',
 					position: 'relative',
 					flexShrink: 0,
 				}}>
-				<Box sx={{ flexShrink: 0 }}>
+				<Box sx={{ pl: spacing(2), pt: spacing(2), pr: spacing(2) }}>
+          {editing ?
 					<TextAreaStyled
+            autoFocus
+            rows={1}
 						id='outlined-controlled'
 						value={listTitle}
 						onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
 							setListTitle(event.target.value);
 						}}
-					/>
+            onFocus={(event:React.FocusEvent<HTMLTextAreaElement>)=>{event.target.select()}}
+            onBlur={()=>setEditing(false)}
+            /> :
+            <Box onClick={()=>setEditing(true)} sx={{ cursor: 'pointer'}}>
+              <Typography variant='h6'>{listTitle}</Typography>
+            </Box>}
 				</Box>
 				{cardsList}
-				<Box sx={{ flexShrink: 0 }}>
+				<Box>
 					<Button>+ Add a card</Button>
 				</Box>
 			</Stack>
