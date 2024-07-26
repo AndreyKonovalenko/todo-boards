@@ -22,9 +22,10 @@ const TextAreaStyled = styled('textarea')(({theme})=>({
   fontWeight: theme.typography.h6.fontWeight,
   lineHeight: theme.typography.h6.lineHeight,
   fontFamily: theme.typography.h6.fontFamily,
-  border: 'none',
+  border:'6px solid red',
   resize:'none',
-  '&:focus': { backgroundColor: theme.palette.background.default, userSelect: 'all'}
+  '&:focus': { backgroundColor: theme.palette.background.default, userSelect: 'all'},
+  '&:focus-visible': {outline: 'none'}
 }))
 
 
@@ -47,7 +48,7 @@ const TextAreaStyled = styled('textarea')(({theme})=>({
 //   maxlength: 5;
 //   &:hover {
 //     opacity: 1;
-//     border-color: ${({ theme }) => theme.colors.primary.main};
+//      ${({ theme }) => theme.colors.primary.main};
 //   }
 //   &:focus-visible {
 //     outline: none;
@@ -96,7 +97,6 @@ const BoardList = (props: { title: string }) => {
 					<TextAreaStyled
             autoFocus
             rows={1}
-						id='outlined-controlled'
 						value={listTitle}
 						onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
 							setListTitle(event.target.value);
