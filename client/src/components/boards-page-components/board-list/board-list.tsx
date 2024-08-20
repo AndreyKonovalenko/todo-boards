@@ -8,9 +8,10 @@ import {
 	ListItem,
 	TextField,
 	Input,
-  styled
+  styled,
+  IconButton
 } from '@mui/material';
-
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { v4 as uuidv4 } from 'uuid';
 
 import CardComponent from '../card-component/card-component';
@@ -22,7 +23,8 @@ const TextAreaStyled = styled('textarea')(({theme})=>({
   fontWeight: theme.typography.h6.fontWeight,
   lineHeight: theme.typography.h6.lineHeight,
   fontFamily: theme.typography.h6.fontFamily,
-  border:'6px solid red',
+  border:`2px solid ${theme.palette.primary.dark}`,
+  borderRadius: theme.spacing(1),
   resize:'none',
   '&:focus': { backgroundColor: theme.palette.background.default, userSelect: 'all'},
   '&:focus-visible': {outline: 'none'}
@@ -93,26 +95,34 @@ const BoardList = (props: { title: string }) => {
 					flexShrink: 0,
 				}}>
 				<Box sx={{ pl: spacing(2), pt: spacing(2), pr: spacing(2) }}>
-          {editing ?
-					<TextAreaStyled
-            autoFocus
-            rows={1}
-						value={listTitle}
-						onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
-							setListTitle(event.target.value);
-						}}
-            onFocus={(event:React.FocusEvent<HTMLTextAreaElement>)=>{event.target.select()}}
-            onBlur={()=>setEditing(false)}
-            /> :
-            <Box onClick={()=>setEditing(true)} sx={{ cursor: 'pointer'}}>
-              <Typography variant='h6'>{listTitle}</Typography>
-            </Box>}
+          <Stack direction='row' justifyContent='space-between' spacing={2}>
+            {editing ?
+            <TextAreaStyled
+              autoFocus
+              rows={1}
+              value={listTitle}
+              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+                setListTitle(event.target.value);
+              }}
+              onFocus={(event:React.FocusEvent<HTMLTextAreaElement>)=>{event.target.select()}}
+              onBlur={()=>setEditing(false)}
+              /> :
+              <Box onClick={()=>setEditing(true)} sx={{ cursor: 'pointer'}}>
+                <Typography variant='h6'>{listTitle}</Typography>
+              </Box>}
+              <IconButton
+              color='inherit'
+              aria-label='list menu'
+              onClick={()=>{}} >
+                <MoreHorizIcon fontSize='medium' />
+              </IconButton>
+            </Stack>
 				</Box>
 				{cardsList}
 				<Box>
 					<Button>+ Add a card</Button>
 				</Box>
-			</Stack>
+			</Stack>``
 		</Box>
 	);
 };
