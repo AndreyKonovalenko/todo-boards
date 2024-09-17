@@ -23,6 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import { TO_MAIN } from '../../utils/route-constants';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 import api from '../../utils/todo-boards-api';
+import { TitleTextAreaStyled } from '../../components/boards-page-components/boards-page-styled-elements/boards-page-styled-elements';
 
 const Content = styled('div', {
 	shouldForwardProp: (prop) => prop !== 'open',
@@ -70,6 +71,8 @@ const ContentPaperBar = styled(MuiPaper, {
 const BoardPage = (): JSX.Element => {
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
+  const [addListEditMode, setAddListEditMode] = useState(false);
+  const [newListTitle, setNewListTitle] = useState('')
 	const { name } = useParams();
 	const { spacing } = useTheme();
 	const { state, pathname } = useLocation();
@@ -98,13 +101,26 @@ const BoardPage = (): JSX.Element => {
 		setOpen(false);
 	};
 
-	const AddList = (
+	const AddList = addListEditMode
+    ?  
+    <Box sx={{ width: spacing(34), height: '100%' }}>
+      <TitleTextAreaStyled
+        autoFocus
+        rows={1}
+        value={newListTitle}
+        onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+          setNewListTitle(event.target.value);
+        }}
+          onFocus={(event:React.FocusEvent<HTMLTextAreaElement>)=>{event.target.select()}}
+          onBlur={()=>setAddListEditMode(false)}
+      /> 
+    </Box>
+    :
 		<Paper sx={{ width: spacing(34), flexShrink: 0, height: spacing(4) }}>
-			<Button fullWidth={true} onClick={() => {}}>
+			<Button fullWidth={true} onClick={() => setAddListEditMode(true)}>
 				Add new list
 			</Button>
-		</Paper>
-	);
+		</Paper>;
 
 	return (
 		<Box
