@@ -11,6 +11,7 @@ import {
 	List,
 	ListItem,
 } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import MuiPaper, { PaperProps as MuiPaperProps } from '@mui/material/Paper';
 import { useState } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -103,7 +104,7 @@ const BoardPage = (): JSX.Element => {
 
 	const AddList = addListEditMode
     ?  
-    <Box sx={{ width: spacing(34), height: '100%' }}>
+    <Box sx={{ width: spacing(34), height: '100%', display: 'flex', flexDirection: "column", gap: spacing(1) }}>
       <TitleTextAreaStyled
         autoFocus
         rows={1}
@@ -114,6 +115,18 @@ const BoardPage = (): JSX.Element => {
           onFocus={(event:React.FocusEvent<HTMLTextAreaElement>)=>{event.target.select()}}
           onBlur={()=>setAddListEditMode(false)}
       /> 
+      <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'left'}}>
+        <Button>
+          Add List
+        </Button>
+        <IconButton
+              color='inherit'
+              aria-label='list menu'
+              onClick={()=>{}} >
+                <CloseIcon fontSize='medium' />
+        </IconButton>
+      </Box>
+
     </Box>
     :
 		<Paper sx={{ width: spacing(34), flexShrink: 0, height: spacing(4) }}>
