@@ -79,6 +79,17 @@ export const deleteBoard = async (req: Request, res: Response) => {
 		}
 	}
 };
+// POST: boards/:id
+// const addListToBoard
+
+// POST: lists
+// const addList = 
+
+// POST: cards/:id
+// const addCardsToList
+
+// POST: coards
+// const addCard 
 
 // const deleteQuiz = asyncHandler(async (req, res) => {
 //   const quiz = await Quiz.findOne({ _id: req.params.id });
