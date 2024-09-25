@@ -1,4 +1,4 @@
-import { BoardModal, TBoard, TBoardDocument } from '../models';
+import { BoardModal, TBoard, TBoardDocument, TList, TListDocument, TCard, TCardDocument, ListModal } from '../models';
 import { Types } from 'mongoose';
 
 export async function createBoard(
@@ -20,4 +20,11 @@ export async function findBoardsByCreaterId(
 export async function findBoardByBoradId(id: string ): Promise<null | TBoardDocument>{
   const board: TBoardDocument | null = await BoardModal.findOne({_id: id});
   return board ? board: null;
+}
+
+export async function createList(
+  list : TList
+): Promise<null | TListDocument> {
+  const newList: TListDocument= await ListModal.create(list);
+  return newList? newList:null
 }

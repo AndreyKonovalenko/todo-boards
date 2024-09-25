@@ -73,7 +73,7 @@ export const ListModal = mongoose.model<TListDocument, TListModel>(
 export type TBoard = {
 	title: string;
 	creater_id: Types.ObjectId;
-	lists?: Array<Types.ObjectId>;
+	lists: Array<Types.ObjectId>;
 };
 // need to rewrite TBoard to Board Document
 export type TBoardDocument = TBoard & mongoose.Document;
