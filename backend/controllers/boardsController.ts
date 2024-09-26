@@ -49,6 +49,7 @@ type TDeleteOneResult = {
 	acknowledged: boolean;
 	deletedCount: number;
 };
+
 export const deleteBoard = async (req: Request, res: Response) => {
 	const board = await findBoardByBoradId(req.params.id);
 	if (!board) {
@@ -83,16 +84,18 @@ export const deleteBoard = async (req: Request, res: Response) => {
 		}
 	}
 };
-// POST: boards/:borderId/lists
 
-const addListToBoard = async (req: Request, res: Response) => {
+// POST: boards/:boardId/lists
+export const addListToBoard = async (req: Request, res: Response) => {
   const { user } = req as CustomRequest;
-  const currentBoard = await findBoardByBoradId(req.params.id);
+  const currentBoard = await findBoardByBoradId(req.params.boardId);
+  
   if(!currentBoard) {
     return res
     .status(StatusCodes.BAD_REQUEST)
     .send(getErrorMessage(`Board by id: ${req.params.id} not found`));
   }
+  
   if (currentBoard) {
     const list: TList = {
       title: req.body.title,
@@ -103,99 +106,22 @@ const addListToBoard = async (req: Request, res: Response) => {
       const newListId = newList?._id
         // save to specific board by it id
       try {
-        currentBoard?.lists.push()
+        currentBoard.lists.push(newListId)
+        const upadatedBorad = await currentBoard.save() 
+        console.log(upadatedBorad);
+        return res.status(StatusCodes.OK).json(`list id: ${newListId} added to board ${req.params.id} successfully`);
+      } catch (error) {
+        return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .send(getErrorMessage(`Board id: ${req.params.id} has not been updated with list id: ${newListId}`))
       }
-   //   return res.status(StatusCodes.OK).json(`list id: ${newListId} added to board ${req.params.id} successfully`);
-
-
     } catch(error) {
       return res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .send(getErrorMessage(error))
     }
-    
-  }
   
-	// try {
-	// 	const newBoard = await createBoard(board);
-	// 	return res.status(StatusCodes.OK).json(newBoard);
-	// } catch (error) {
-	// 	return res
-	// 		.status(StatusCodes.INTERNAL_SERVER_ERROR)
-	// 		.send(getErrorMessage(error));
-	// }
-
+  }
 }
-
-
-
-// const createAndAddQuestionToQuiz = asyncHandler(async (req, res) => {
-//   const { question, options, currect } = req.body;
-//   const currentQuiz = await Quiz.findOne({ _id: req.params.id });
-//   if (currentQuiz) {
-//     const newQuestion = await Question.create({
-//       question,
-//       options,
-//       currect,
-//       archived: false,
-//     });
-//     if (newQuestion) {
-//       currentQuiz.questions.push(newQuestion._id);
-//       const upadatedQuiz = await currentQuiz.save();
-//       if (upadatedQuiz) {
-//         res.status(200).json(newQuestion);
-//       } else {
-//         res.status(400);
-//         throw new Error("during updating quiz something went wrong");
-//       }
-//     } else {
-//       res.status(400);
-//       throw new Error("New question has not been created");
-//     }
-//   } else {
-//     res.status(400);
-//     throw new Error("Ivalid quiz id");
-//   }
-// });
-
-
-
-
-
-
-// POST: lists
-// const addList = 
-
-// POST: cards/:id
-// const addCardsToList
-
-// POST: coards
-// const addCard 
-
-// const deleteQuiz = asyncHandler(async (req, res) => {
-//   const quiz = await Quiz.findOne({ _id: req.params.id });
-//   if (!quiz) {
-//     res.status(400);
-//     throw new Error("Quiz not found");
-//   }
-//   if (quiz) {
-//     if (quiz.questions.length === 0) {
-//       await quiz.remove();
-//       res.status(200).json({ id: req.params.id });
-//     }
-//     if (quiz.questions.length > 0) {
-//       for (const element of quiz.questions) {
-//         const question = await Question.findOne({ _id: element });
-//         // if (!question) {
-//         //   res.status(400);
-//         //   throw new Error('Question not found');
-//         // }
-//         if (question) {
-//           await question.remove();
-//         }
-//       }
-//       await quiz.remove();
-//       res.status(200).json({ id: req.params.id });
-//     }
-//   }
-// });
+    
+  
