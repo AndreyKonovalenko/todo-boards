@@ -99,7 +99,8 @@ export const addListToBoard = async (req: Request, res: Response) => {
   if (currentBoard) {
     const list: TList = {
       title: req.body.title,
-      creater_id: user?._id
+      creater_id: user?._id,
+      cards: []
     }
     try {
       const newList = await createList(list);

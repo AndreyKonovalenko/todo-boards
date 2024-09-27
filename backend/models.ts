@@ -54,7 +54,7 @@ export const CardModal = mongoose.model<TCardDocument, TCardModal>(
 export type TList = {
 	title: string;
 	creater_id: Types.ObjectId;
-	cards?: Array<Types.ObjectId>;
+	cards: Array<Types.ObjectId>;
 };
 export type TListDocument = TList & mongoose.Document;
 
