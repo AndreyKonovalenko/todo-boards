@@ -2,7 +2,7 @@ import axios, { AxiosResponse, AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import { TUser } from '../services/user/user-store';
 import { TBoard } from '../services/boards/board-store';
-import {TList} from '../services/lists/list-store'
+import { TList } from '../services/lists/list-store';
 import { TForm } from './types';
 
 const LOGIN = '/auth/login';
@@ -39,9 +39,11 @@ const auth = {
 
 const boards = {
 	fetchBoards: () => request.get<Array<TBoard>>(BOARDS),
-	createBoard: (data: TBoard) => request.post<TBoard>(BOARDS, data),
+	createBoard: (data: { title: FormDataEntryValue | null }) =>
+		request.post(BOARDS, data),
 	deleleBoard: (id: string) => request.delete(`${BOARDS}/${id}`),
-  addListToBoard: (boardId:string, data:TForm) => request.post<TList>(`${BOARDS}/${boardId}${LISTS}`, data)
+	addListToBoard: (boardId: string, data: TForm) =>
+		request.post<TList>(`${BOARDS}/${boardId}${LISTS}`, data),
 };
 
 const api = {

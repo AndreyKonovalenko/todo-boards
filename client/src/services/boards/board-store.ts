@@ -4,8 +4,8 @@ import { devtools } from 'zustand/middleware';
 export type TBoard = {
 	_id: string;
 	title: string;
-  creater_id: string;
-  lists: Array<String>;
+	creater_id: string;
+	lists: Array<String>;
 };
 
 // type TBaordsState = {

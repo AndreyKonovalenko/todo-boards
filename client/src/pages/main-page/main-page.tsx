@@ -46,7 +46,7 @@ const MainPage = () => {
 	) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-		mutate({ title: data.get('text') as string });
+		mutate({ title: data.get('text') });
 	};
 
 	const hadndleAddBoardClick = (event: React.MouseEvent<HTMLButtonElement>) => {
