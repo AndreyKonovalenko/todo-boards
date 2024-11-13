@@ -60,10 +60,11 @@ export type TListDocument = TList & mongoose.Document;
 
 type TListModel = Model<TListDocument>;
 const listSchema = new Schema<TListDocument, TListModel>({
-	title: { type: String, required: true },
-	creater_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-	cards: Array<{ type: Schema.Types.ObjectId; ref: 'Card' }>,
-});
+    title: { type: String, required: true },
+    creater_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    cards: [{type: Schema.Types.ObjectId, ref: 'Card'}] 
+  }
+)
 export const ListModal = mongoose.model<TListDocument, TListModel>(
 	'List',
 	listSchema
@@ -82,7 +83,7 @@ type TBoardModel = Model<TBoardDocument>;
 const boardSchema = new Schema<TBoardDocument, TBoardModel>({
 	title: { type: String, required: true },
 	creater_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-	lists: Array<{ type: Schema.Types.ObjectId; ref: 'List' }>,
+	lists:[{ type: Schema.Types.ObjectId, ref: 'List' }]
 });
 
 export const BoardModal = mongoose.model<TBoardDocument, TBoardModel>(
